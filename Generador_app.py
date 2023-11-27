@@ -6,7 +6,11 @@ import tkinter.messagebox as mb
 
 main = Tk()
 
-color_fondo = "RoyalBlue"
+color_primario = "#373737"
+color_claro = "#f8f8f8"
+color_secundario = "#1183b8"
+color_terciario = "#f48d24"
+
 
 #Precio Base o unitario por defecto (pb)
 def activar_pb(list_n):
@@ -36,7 +40,7 @@ def activar_h(list_n):
 
 #Ventana Principal
 main.title("Generador de Presupuestos")
-main.config(bg="RoyalBlue")
+main.config(bg=color_primario)
 main.resizable(1,1)
 
 #Frames 
@@ -51,17 +55,17 @@ right_frame.pack(side=RIGHT)
 bottom_frame.pack(side=BOTTOM)
 
 #Labels
-# top_frame_lbl = Label(top_frame,font=("Helvetica",78),text="Generador de Presupuestos",fg="Black",bg="RoyalBlue")
+# top_frame_lbl = Label(top_frame,font=("Helvetica",78),text="Generador de Presupuestos",fg="White",bg=color_primario)
 # top_frame_lbl.pack()
 
-concepto_frame = Frame(top_frame,bd=0,relief=FLAT)
+concepto_frame = Frame(top_frame,bd=0,relief=FLAT, bg=color_claro)
 concepto_frame.grid(row=0,column=0)
-concepto_frame_lbl = LabelFrame(concepto_frame,font=("Helvetica",18),text="Concepto",fg="Black")
+concepto_frame_lbl = LabelFrame(concepto_frame,font=("Helvetica",18),text="Concepto",fg=color_primario)
 concepto_frame_lbl.pack(side=TOP)
 
 funciones_frame = Frame(top_frame,bd=0,relief=FLAT)
 funciones_frame.grid(row=1,column=0)
-funciones_frame_lbl = LabelFrame(funciones_frame,font=("Helvetica",18),text="Funciones",fg="Black")
+funciones_frame_lbl = LabelFrame(funciones_frame,font=("Helvetica",18),text="Funciones",fg=color_primario)
 funciones_frame_lbl.pack(side=TOP)
 
 #entry
