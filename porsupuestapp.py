@@ -13,29 +13,18 @@ color_terciario = "#f48d24"
 # estilos = (font("Helvetica",18), bg=color_claro, fg=color_primario)
 
 #Precio Base o unitario por defecto (pb)
-def activar_pb(list_n):
-    pb_lists = [concepto_opciones]
-    contador_pb_lists = [concepto_contador_ent_1, concepto_contador_ent_2, concepto_contador_ent_3]
-    for contador_pb in range(0,len(pb_lists[list_n])):
-        if pb_lists[list_n][contador_pb].get() == 1:
-            contador_pb_lists[list_n][contador_pb].configure(state=NORMAL)
+def activar_textos(list_n):
+    texto_lists = [concepto_opciones]
+    contador_textos_lists = [concepto_contador_ent_1, concepto_contador_ent_2, concepto_contador_ent_3]
+    for contador_textos in range(0,len(texto_lists[list_n])):
+        if texto_lists[list_n][contador_textos].get() == 1:
+            contador_textos_lists[list_n][contador_textos].configure(state=NORMAL)
         else:
-            contador_pb_lists[list_n][contador_pb].configure(state=DISABLED)
-
-
-#Valor horas trabajadas (h)
-# def activar_h(list_n):
-#     h_lists = [[concepto_opciones]]
-#     contador_h_lists = [concepto_contador_ent_1, concepto_contador_ent_2, concepto_contador_ent_3]
-#     for contador_h in range(0,len(h_lists[list_n])):
-#         if h_lists[list_n][contador_h].get() == 1:
-#             contador_h_lists[list_n][contador_h].configure(state=NORMAL)
-#         else:
-#             contador_h_lists[list_n][contador_h].configure(state=DISABLED)
+            contador_textos_lists[list_n][contador_textos].configure(state=DISABLED)
 
 
 #Ventana Principal
-main.title("Generador de Presupuestos")
+main.title("PORSUPUESTAPP")
 main.config(bg=color_primario) #Color del fondo de la ventana
 main.resizable(1,1)
 main.minsize(625, 675)
@@ -81,7 +70,7 @@ contador = 0
 for concepto in concepto_list:
     concepto_opciones.append(IntVar())
     #cajas_texto = Checkbutton(concepto_frame_lbl, text=concepto, bg=color_claro, fg=color_primario, font=("Helvetica",18), onvalue=1, offvalue=0, variable=concepto_opciones[contador], command=lambda:activar_pb(0))
-    cajas_texto = Checkbutton(concepto_frame_lbl, text=concepto, bg=color_claro, fg=color_primario, font=("Helvetica",18), relief=FLAT, variable=concepto_opciones[contador], command=lambda:activar_pb(0))
+    cajas_texto = Checkbutton(concepto_frame_lbl, text=concepto, bg=color_claro, fg=color_primario, font=("Helvetica",18), relief=FLAT, variable=concepto_opciones[contador], command=lambda:activar_textos(0))
     cajas_texto.grid(row=contador,column=0,sticky=W, padx=30, pady=5)
     concepto_contador_ent_1.append(Entry(concepto_frame_lbl, font=("Helvetica",18), relief=FLAT, justify=CENTER, bd=1, width=7, state=DISABLED, fg=color_primario, bg=color_claro))
     concepto_contador_ent_1[contador].grid(row=contador,column=1,sticky=W)
