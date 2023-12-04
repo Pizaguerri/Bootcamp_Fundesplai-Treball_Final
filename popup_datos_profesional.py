@@ -56,10 +56,10 @@ if __name__ == '__main__':
     main.bind('<Return>', (lambda event, e=ents: save(e)))   
     guardar = Button(main, text='Guardar', font=("Helvetica",18), bd=0, padx=5, pady=5, width=15, relief=FLAT, bg=color_claro, fg=color_primario, command=(lambda e=ents: guardar(e)))
     guardar.pack(side=RIGHT, padx=2, pady=2)
-    guardar.place(in_=popup_prof_frame, anchor='c', relx=5)
+    guardar.place(in_=popup_prof_frame, anchor='se', relx=-25)
     salir = Button(main, text='Salir', font=("Helvetica",18), bd=0, padx=5, pady=5, width=15, relief=FLAT, bg=color_claro, fg=color_primario, command=main.quit)
     salir.pack(side=LEFT, padx=2, pady=2)
-    salir.place(in_=popup_prof_frame, anchor='c', relx=-5)
+    salir.place(in_=popup_prof_frame, anchor='sw', relx=25)
 
 
 
