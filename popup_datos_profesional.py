@@ -1,20 +1,20 @@
 import os
 from tkinter import *
-main = Tk()
+popup_prof = Tk()
 
 color_primario = "#373737"
 color_claro = "#f8f8f8"
 
 #Ventana Principal
-main.title("PORSUPUESTAPP")
-main.config(bg=color_primario)
-main.resizable(1,1)
-main.minsize(600, 600)
+popup_prof.title("PORSUPUESTAPP")
+popup_prof.config(bg=color_primario)
+popup_prof.resizable(1,1)
+popup_prof.minsize(600, 600)
 
 #Frames 
-top_frame = Frame(main,bd=10,relief=FLAT, bg=color_claro)
+top_frame = Frame(popup_prof,bd=10,relief=FLAT, bg=color_claro)
 top_frame.pack(side=TOP, fill="both", expand=True, padx=20, pady=20)
-top_frame.place(in_=main, anchor="c", relx=.5, rely=.5)
+top_frame.place(in_=popup_prof, anchor="c", relx=.5, rely=.5)
 
 popup_prof_frame = Frame(top_frame,bd=0,relief=FLAT, bg=color_claro)
 popup_prof_frame.pack(side=TOP, fill="both", expand=True, padx=10, pady=10)
@@ -38,10 +38,10 @@ def save(entries):
         print('%s: "%s"' % (field, text)) 
 
 
-def guardar_datos_prof(main, fields):
+def guardar_datos_prof(popup_prof, fields):
     entries = []
     for datos in datos_profesionales:
-        row = Frame(main)
+        row = Frame(popup_prof)
         lab = Label(row, width=15, text=datos, anchor=W)
         ent = Entry(row)
         row.pack(side=TOP, fill=X, padx=5, pady=5)
@@ -52,15 +52,15 @@ def guardar_datos_prof(main, fields):
 
 
 if __name__ == '__main__':
-    ents = guardar_datos_prof(main, datos_profesionales)
-    main.bind('<Return>', (lambda event, e=ents: save(e)))   
-    guardar = Button(main, text='Guardar', font=("Helvetica",18), bd=0, padx=5, pady=5, width=15, relief=FLAT, bg=color_claro, fg=color_primario, command=(lambda e=ents: guardar(e)))
+    ents = guardar_datos_prof(popup_prof, datos_profesionales)
+    popup_prof.bind('<Return>', (lambda event, e=ents: save(e)))   
+    guardar = Button(popup_prof, text='Guardar', font=("Helvetica",18), bd=0, padx=5, pady=5, width=15, relief=FLAT, bg=color_claro, fg=color_primario, command=(lambda e=ents: guardar(e)))
     guardar.pack(side=RIGHT, padx=2, pady=2)
     guardar.place(in_=popup_prof_frame, anchor='se', relx=-25)
-    salir = Button(main, text='Salir', font=("Helvetica",18), bd=0, padx=5, pady=5, width=15, relief=FLAT, bg=color_claro, fg=color_primario, command=main.quit)
+    salir = Button(popup_prof, text='Salir', font=("Helvetica",18), bd=0, padx=5, pady=5, width=15, relief=FLAT, bg=color_claro, fg=color_primario, command=popup_prof.quit)
     salir.pack(side=LEFT, padx=2, pady=2)
     salir.place(in_=popup_prof_frame, anchor='sw', relx=25)
 
 
 
-main.mainloop()
+popup_prof.mainloop()

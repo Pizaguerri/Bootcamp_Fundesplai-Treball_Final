@@ -1,6 +1,7 @@
 """ Generador de Presupuestos """
 #import os
 from tkinter import *
+#from tkinter.ttk import *
 
 # Gama de colores
 color_primario = "#373737"
@@ -48,9 +49,8 @@ def activa_impostos(imp):
             irpf_total_ent.delete(0,END)
             irpf_total_ent.config(state=DISABLED)
             irpf_total_ent.config(disabledbackground=gris_claro, disabledforeground=color_primario)
-            
 
-## Producto de cada concepto (Precio base * nº h)
+## Calcula el producto de cada concepto (Precio base * nº h)
 def update_entry3(var,cont):
     if var.get().replace('.', '').isnumeric() and concepto_contador_ent_1[cont].get().replace('.', '').isnumeric():
         entry3_vars[cont].set(round(float(concepto_contador_ent_1[cont].get())*float(var.get()),2))
@@ -74,7 +74,7 @@ def update_impost(var,tipus):
                 irpf_total_var.set(round(float(subtotal_ent.get())*int(var.get())/100,2))
                 irpf_total_ent.config(state=DISABLED)
 
-## Suma de productos de cada concepto
+## Subtotal, suma de productos de cada concepto
 def update_subtotal():
     subtotal_var.set(0.00)
     suma = subtotal_var.get()
@@ -83,13 +83,14 @@ def update_subtotal():
         suma += entry_var.get()
     subtotal_var.set(round(suma,2))
 
-## Suma de Subtotal, IVA y resta de IRPF
+## Total, suma de Subtotal e IVA y resta de IRPF
 def update_total():
     total_var.set(0.00)
     suma = subtotal_var.get()
     suma += iva_total_var.get()
     suma -= irpf_total_var.get()
     total_var.set(round(suma,2))
+
 
 # Funciones de los Botones
 ## Traspasa los Totales de los conceptos e impuestos y totales
