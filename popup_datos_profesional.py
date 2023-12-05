@@ -28,7 +28,7 @@ boton_prof_frame.pack(side=BOTTOM)
 
 
 #Guardar Datos Profesionales
-datos_profesionales = 'Nombre', 'CIF', 'Email', 'Teléfono', 'Portfolio', 'Dirección'
+datos_profesionales = 'Profesional', 'Dirección', 'ZIP', 'Teléfono', 'Portfolio', 'Email', 'CIF'
 
 
 def save(entries):
