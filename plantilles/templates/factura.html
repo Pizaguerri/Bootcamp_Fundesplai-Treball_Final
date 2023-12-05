@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Factura</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main>
+      <div>
+        <img id="logo" src="icono_camara.png" alt="icono camara" />
+      </div>
+      <section id="primera">
+        <div id="datos_profesional">
+          <p class="nom_empresa">{{nom_empresa_profesional}}</p>
+          <p>{{direccion_profesional}}</p>
+          <p>{{zip_profesional}}</p>
+          <p>{{cif_profesional}}</p>
+          <p>{{telefono_profesional}}</p>
+        </div>
+        <div id="datos_cliente">
+          <p class="nom_empresa">{{nom_empresa_cliente}}</p>
+          <p>{{direccion_cliente}}</p>
+          <p>{{zip_cliente}}</p>
+          <p>{{cif_cliente}}</p>
+          <p>{{telefono_cliente}}</p>
+        </div>
+      </section>
+
+      <section id="segona">
+        <table>
+          <thead>
+            <tr>
+              <th class="table_left">Descripción</th>
+              <th class="table_center">Unidades</th>
+              <th class="table_right">Precio unitario</th>
+              <th class="table_right">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="table_left">Trabajo</td>
+              <td class="table_center">{{trabajo_unidades}}</td>
+              <td class="table_right">{{trabajo_precio_unitario}}</td>
+              <td class="table_right">{{trabajo_total}}</td>
+            </tr>
+            <tr>
+              <td class="table_left">Horas</td>
+              <td class="table_center">{{horas_unidades}}</td>
+              <td class="table_right">{{horas_precio_unitario}}</td>
+              <td class="table_right">{{horas_total}}</td>
+            </tr>
+            <tr>
+                <td class="table_left">Transporte</td>
+                <td class="table_center">{{transporte_unidades}}</td>
+                <td class="table_right">{{transporte_precio_unitario}}</td>
+                <td class="table_right">{{transporte_total}}</td>
+            </tr>
+            <tr>
+                <td class="table_left">Material</td>
+                <td class="table_center">{{material_unidades}}</td>
+                <td class="table_right">{{material_precio_unitario}}</td>
+                <td class="table_right">{{material_total}}</td>
+            </tr>
+            <tr>
+              <td class="table_left">Extra</td>
+              <td class="table_center">{{extra_unidades}}</td>
+              <td class="table_right">{{extra_precio_unitario}}</td>
+              <td class="table_right">{{extra_total}}</td>
+            </tr>
+            <tr>
+              <td class="tres_columnas" colspan="3">Subtotal</td>
+              <td class="table_right">{{subtotal}}</td>
+            </tr>
+            <tr>
+              <td class="tres_columnas" colspan="3">IVA</td>
+              <td class="table_right">{{iva}}</td>
+            </tr>
+            <tr>
+              <td class="tres_columnas" colspan="3">IRPF</td>
+              <td class="table_right">{{irpf}}</td>
+            </tr>
+            <tr>
+              <td class="tres_columnas total" colspan="3">Total</td>
+              <td class="table_right total">{{total}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+        <section id="pago">
+          <p>Datos de pago:</p>
+          <p>IBAN : {{iban}}</p>
+          <p>SWIFT/BIC : {{swift}}</p>
+        </section>
+        <section id="firma">
+          <p>Firmado:</p>
+        </section>
+    </main>
+  </body>
+</html>
