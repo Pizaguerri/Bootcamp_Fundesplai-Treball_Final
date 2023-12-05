@@ -1,14 +1,16 @@
 """ Generador de Presupuestos """
-# import os
+#import os
 from tkinter import *
 
+# Gama de colores
 color_primario = "#373737"
 color_claro = "#f8f8f8"
 color_secundario = "#1183b8"
 color_terciario = "#f48d24"
 gris_claro = "#ecedec"
 
-#Precio Base o unitario por defecto (pb)
+# Funciones de los Conceptos
+## Activa los campos Entry con cada Checkbox de los conceptos
 def activar_textos(cont):
     if concepto_opciones[cont].get() == 1:
         concepto_contador_ent_1[cont].config(state=NORMAL)
@@ -22,6 +24,7 @@ def activar_textos(cont):
         entry3_vars[cont].set(0.00)
         concepto_contador_ent_3[cont].configure(disabledbackground=gris_claro, disabledforeground=color_primario)
 
+## Activa Entrys de los campos impuestos
 def activa_impostos(imp):
     if imp.lower() == 'iva':
         if iva_var_cb.get() == 1:
@@ -46,24 +49,15 @@ def activa_impostos(imp):
             irpf_total_ent.config(state=DISABLED)
             irpf_total_ent.config(disabledbackground=gris_claro, disabledforeground=color_primario)
             
-def calc_pressupost():
-    pass
 
-def fer_factura():
-    pass
-
-def historial():
-    pass
-
-def send_mail():
-    pass
-
+## Producto de cada concepto (Precio base * nº h)
 def update_entry3(var,cont):
     if var.get().replace('.', '').isnumeric() and concepto_contador_ent_1[cont].get().replace('.', '').isnumeric():
         entry3_vars[cont].set(round(float(concepto_contador_ent_1[cont].get())*float(var.get()),2))
     else:
         entry3_vars[cont].set(0.00)
 
+## IVA e IRPF 
 def update_impost(var,tipus):
     if tipus.lower() == "iva":
         if var.get().isnumeric():
@@ -80,6 +74,7 @@ def update_impost(var,tipus):
                 irpf_total_var.set(round(float(subtotal_ent.get())*int(var.get())/100,2))
                 irpf_total_ent.config(state=DISABLED)
 
+## Suma de productos de cada concepto
 def update_subtotal():
     subtotal_var.set(0.00)
     suma = subtotal_var.get()
@@ -88,6 +83,7 @@ def update_subtotal():
         suma += entry_var.get()
     subtotal_var.set(round(suma,2))
 
+## Suma de Subtotal, IVA y resta de IRPF
 def update_total():
     total_var.set(0.00)
     suma = subtotal_var.get()
@@ -95,16 +91,34 @@ def update_total():
     suma -= irpf_total_var.get()
     total_var.set(round(suma,2))
 
-# Comença programa
+# Funciones de los Botones
+## Traspasa los Totales de los conceptos e impuestos y totales
+def calc_pressupost():
+    pass
+
+## Genera una factura en PDF
+def fer_factura():
+    pass
+
+## Registra las facturas generadas por número de recibo (Opción a eliminar y actualizar número de recibo)
+def historial():
+    pass
+
+## Envía las facturas por email
+def send_mail():
+    pass
+
+
+# Abrir programa
 main = Tk()
 
-#Ventana Principal
+# Ventana Principal
 main.title("PORSUPUESTAPP")
 main.config(bg=color_primario) #Color del fondo de la ventana
 main.resizable(1,1)
 main.minsize(625, 675)
 
-#Frames 
+# Frames 
 top_frame = Frame(main,bd=10,relief=FLAT, bg=color_claro)
 left_frame = Frame(main,bd=10,relief=FLAT, bg=color_claro)
 right_frame = Frame(main,bd=10,relief=FLAT, bg=color_claro)
@@ -116,7 +130,7 @@ left_frame.pack(side=LEFT)
 right_frame.pack(side=RIGHT)
 bottom_frame.pack(side=BOTTOM)
 
-#Labels
+# Labels
 concepto_frame = Frame(top_frame,bd=0,relief=FLAT, bg=color_claro)
 concepto_frame_lbl = LabelFrame(concepto_frame,font=("Helvetica",18),text="Conceptos",fg=color_primario, bg=color_claro)
 botones_frame = Frame(top_frame,bd=0,relief=FLAT, bg=color_claro)
@@ -127,10 +141,11 @@ concepto_frame_lbl.pack(side=TOP)
 botones_frame.grid(row=1,column=0)
 botones_frame_lbl.pack(side=TOP)
 
-#Listas de conceptos y opciones
+# Listas de conceptos y opciones
 concepto_list = ["Trabajo", "Extra", "Equipo", "Material", "Transporte"]
 
-#Checkbuttons de los conceptos con caja de entrada de valores
+# Checkbuttons de los conceptos con caja de entrada de valores
+# Entrys por columnas 
 concepto_opciones = list()
 concepto_contador_ent_1 = list()
 concepto_contador_ent_2 = list()
@@ -143,19 +158,20 @@ for concepto in concepto_list:
     concepto_opciones.append(IntVar())
     cajas_texto = Checkbutton(concepto_frame_lbl, text=concepto, bd=2, bg=color_claro, fg=color_primario, font=("Helvetica",18), relief=FLAT, variable=concepto_opciones[contador], command=lambda cont=contador:activar_textos(cont))
     cajas_texto.grid(row=contador,column=0,sticky=W, padx=30, pady=5)
-    # Primera columna
+
+    # Columna Entry 1
     concepto_contador_ent_1.append(Entry(concepto_frame_lbl, font=("Helvetica",18), relief=FLAT, justify=CENTER, bd=2, width=7, state=DISABLED, fg=color_primario, bg=color_claro))
     concepto_contador_ent_1[contador].grid(row=contador,column=1,sticky=W)
     
-    # Variable entry del mig
+    # Variable entry 2
     entry2_var = StringVar()
     entry2_var.trace("w", lambda name,index,mode,var=entry2_var,cont=contador:update_entry3(var,cont))
     entry2_vars.append(entry2_var)
-    # Segona columna
+    # Segunda columna
     concepto_contador_ent_2.append(Entry(concepto_frame_lbl, font=("Helvetica",18), relief=FLAT, justify=CENTER, bd=2, width=7, state=DISABLED, fg=color_primario, bg=color_claro, textvariable=entry2_vars[contador]))
     concepto_contador_ent_2[contador].grid(row=contador,column=2,sticky=W)
     
-    # Variable entry final
+    # Variable entry 3
     entry3_var = DoubleVar()
     entry3_var.trace('w',lambda name,index,mode,var=entry3_var,:update_subtotal())
     entry3_vars.append(entry3_var)
@@ -172,9 +188,10 @@ iva_var_ent.trace('w',lambda name,index,mode,var=iva_var_ent,tipus="IVA":update_
 iva_total_var = DoubleVar()
 iva_total_var.trace('w',lambda name,index,mode:update_total())
 
-iva_cb = Checkbutton(concepto_frame_lbl, text="IVA", bd=2, bg=color_claro, fg=color_primario, font=("Helvetica",18), relief=FLAT, variable=iva_var_cb, command=lambda:activa_impostos('IVA'))
+iva_cb = Checkbutton(concepto_frame_lbl, text="IVA", bd=1, bg=color_claro, fg=color_primario, font=("Helvetica",18), relief=FLAT, variable=iva_var_cb, command=lambda:activa_impostos('IVA'))
 iva_ent = Entry(concepto_frame_lbl, font=("Helvetica",18), relief=FLAT, justify=CENTER, bd=2, width=7, state=DISABLED, fg=color_primario, bg=color_claro, textvariable=iva_var_ent)
 iva_total_ent = Entry(concepto_frame_lbl, font=("Helvetica",18), relief=FLAT, justify=CENTER, bd=2, width=7, state=DISABLED, fg=color_primario, bg=color_claro,textvariable=iva_total_var)
+
 ## IRPF
 irpf_var_cb = IntVar()
 irpf_var_ent = StringVar()
@@ -194,11 +211,13 @@ irpf_ent.grid(row=7,column=1,columnspan=2)
 irpf_total_ent.grid(row=7,column=3)
 
 # Calcular Subtotal y Total
+## Subtotal
 subtotal_var = DoubleVar(value=0.00)
 subtotal_var.trace('w',lambda name,index,mode:update_total())
 subtotal_lbl = Label(concepto_frame_lbl, text="Subtotal", bd=2, bg=color_claro, fg=color_primario, font=("Helvetica",18))
 subtotal_ent = Entry(concepto_frame_lbl, font=("Helvetica",18), relief=FLAT, justify=CENTER,state=DISABLED, bd=2, width=23, fg=color_primario, bg=color_claro,textvariable=subtotal_var)
 
+## Total
 total_var = DoubleVar(value=0.00)
 total_lbl = Label(concepto_frame_lbl, text="Total", bd=2, bg=color_claro, fg=color_primario, font=("Helvetica",18))
 total_ent = Entry(concepto_frame_lbl, font=("Helvetica",18), relief=FLAT, justify=CENTER,state=DISABLED, bd=2, width=23, fg=color_primario, bg=color_claro,textvariable=total_var)
