@@ -1,14 +1,17 @@
 """ Generador de Presupuestos """
 #import os
 from tkinter import *
-#from tkinter.ttk import *
+from tkinter import ttk
 
-# Gama de colores
-color_primario = "#373737"
-color_claro = "#f8f8f8"
-color_secundario = "#1183b8"
-color_terciario = "#f48d24"
-gris_claro = "#ecedec"
+# Estilos
+Color_Oscuro = "#373737"
+Color_Claro = "#f8f8f8"
+Color_Azul = "#1183b8"
+Color_Naranja = "#f48d24"
+Gris_Claro = "#ecedec"
+# Estilo = ttk.Style()
+# Estilo.configure('TFrame', background=Color_Oscuro)
+# Estilo.configure('Frame1.TFrame', background=Color_Oscuro, foreground=Color_Claro, font=("Helvetica", 18), )
 
 # Funciones de los Conceptos
 ## Activa los campos Entry con cada Checkbox de los conceptos
@@ -16,39 +19,39 @@ def activar_textos(cont):
     if concepto_opciones[cont].get() == 1:
         concepto_contador_ent_1[cont].config(state=NORMAL)
         concepto_contador_ent_2[cont].config(state=NORMAL)
-        concepto_contador_ent_3[cont].configure(disabledbackground=color_claro, disabledforeground=color_primario)
+        concepto_contador_ent_3[cont].configure(disabledbackground=Color_Claro, disabledforeground=Color_Oscuro)
     else:
         concepto_contador_ent_1[cont].delete(0,END)
         concepto_contador_ent_1[cont].config(state=DISABLED)
         entry2_vars[cont].set("")
         concepto_contador_ent_2[cont].config(state=DISABLED)
         entry3_vars[cont].set(0.00)
-        concepto_contador_ent_3[cont].configure(disabledbackground=gris_claro, disabledforeground=color_primario)
+        concepto_contador_ent_3[cont].configure(disabledbackground=Gris_Claro, disabledforeground=Color_Oscuro)
 
 ## Activa Entrys de los campos impuestos
 def activa_impostos(imp):
     if imp.lower() == 'iva':
         if iva_var_cb.get() == 1:
             iva_ent.configure(state=NORMAL)
-            iva_total_ent.config(disabledbackground=color_claro, disabledforeground=color_primario)
+            iva_total_ent.config(disabledbackground=Color_Claro, disabledforeground=Color_Oscuro)
         else:
             iva_ent.delete(0,END)
             iva_ent.configure(state=DISABLED)
             iva_total_ent.configure(state=NORMAL)
             iva_total_ent.delete(0,END)
             iva_total_ent.configure(state=DISABLED)
-            iva_total_ent.config(disabledbackground=gris_claro, disabledforeground=color_primario)
+            iva_total_ent.config(disabledbackground=Gris_Claro, disabledforeground=Color_Oscuro)
     elif imp.lower() == 'irpf':
         if irpf_var_cb.get() == 1:
             irpf_ent.configure(state=NORMAL)
-            irpf_total_ent.config(disabledbackground=color_claro, disabledforeground=color_primario)
+            irpf_total_ent.config(disabledbackground=Color_Claro, disabledforeground=Color_Oscuro)
         else:
             irpf_ent.delete(0,END)
             irpf_ent.configure(state=DISABLED)
             irpf_total_ent.config(state=NORMAL)
             irpf_total_ent.delete(0,END)
             irpf_total_ent.config(state=DISABLED)
-            irpf_total_ent.config(disabledbackground=gris_claro, disabledforeground=color_primario)
+            irpf_total_ent.config(disabledbackground=Gris_Claro, disabledforeground=Color_Oscuro)
 
 ## Calcula el producto de cada concepto (Precio base * nº h)
 def update_entry3(var,cont):
@@ -111,31 +114,48 @@ def send_mail():
 
 
 # Abrir programa
-main = Tk()
+app = Tk()
 
 # Ventana Principal
-main.title("PORSUPUESTAPP")
-main.config(bg=color_primario) #Color del fondo de la ventana
-main.resizable(1,1)
-main.minsize(625, 675)
+app.title("PORSUPUESTAPP")
+app.config(bg=Color_Oscuro) #Color del fondo de la ventana
+app.resizable(1,1)
+app.minsize(625, 675)
+
+
+# Tabs
+paginas = ttk.Notebook(app)
+#paginas.config(bg=Color_Oscuro)
+tab1 = ttk.Frame(paginas, style='Frame1.TFrame')
+tab2 = ttk.Frame(paginas)
+tab3 = ttk.Frame(paginas)
+tab4 = ttk.Frame(paginas)
+paginas.add(tab1, text ='Calculadora')
+paginas.add(tab2, text ='Historial')
+paginas.add(tab3, text ='Presupuestos')
+paginas.add(tab4, text ='Facturas')
+paginas.pack(expand = 1, fill ="both")
+# ttk.Label(tab1, text ="Calculadora").grid(column = 0, row = 0, padx = 30, pady = 30)
+# ttk.Label(tab2, text ="Historial").grid(column = 0, row = 0,  padx = 30, pady = 30)
+
 
 # Frames 
-top_frame = Frame(main,bd=10,relief=FLAT, bg=color_claro)
-left_frame = Frame(main,bd=10,relief=FLAT, bg=color_claro)
-right_frame = Frame(main,bd=10,relief=FLAT, bg=color_claro)
-bottom_frame = Frame(main,bd=10,relief=FLAT, bg=color_claro)
+top_frame = Frame(app,bd=10,relief=FLAT, bg=Color_Claro)
+left_frame = Frame(app,bd=10,relief=FLAT, bg=Color_Claro)
+right_frame = Frame(app,bd=10,relief=FLAT, bg=Color_Claro)
+bottom_frame = Frame(app,bd=10,relief=FLAT, bg=Color_Claro)
 
 top_frame.pack(side=TOP, fill="both", expand=True, padx=20, pady=20)
-top_frame.place(in_=main, anchor="c", relx=.5, rely=.5)
+top_frame.place(in_=app, anchor="c", relx=.5, rely=.5)
 left_frame.pack(side=LEFT)
 right_frame.pack(side=RIGHT)
 bottom_frame.pack(side=BOTTOM)
 
 # Labels
-concepto_frame = Frame(top_frame,bd=0,relief=FLAT, bg=color_claro)
-concepto_frame_lbl = LabelFrame(concepto_frame,font=("Helvetica",18),text="Conceptos",fg=color_primario, bg=color_claro)
-botones_frame = Frame(top_frame,bd=0,relief=FLAT, bg=color_claro)
-botones_frame_lbl = LabelFrame(botones_frame,font=("Helvetica",18),text="Opciones",fg=color_primario, bg=color_claro)
+concepto_frame = Frame(top_frame,bd=0,relief=FLAT, bg=Color_Claro)
+concepto_frame_lbl = LabelFrame(concepto_frame,font=("Helvetica",18),text="Conceptos",fg=Color_Oscuro, bg=Color_Claro)
+botones_frame = Frame(top_frame,bd=0,relief=FLAT, bg=Color_Claro)
+botones_frame_lbl = LabelFrame(botones_frame,font=("Helvetica",18),text="Opciones",fg=Color_Oscuro, bg=Color_Claro)
 
 concepto_frame.grid(row=0,column=0)
 concepto_frame_lbl.pack(side=TOP)
@@ -143,7 +163,7 @@ botones_frame.grid(row=1,column=0)
 botones_frame_lbl.pack(side=TOP)
 
 # Listas de conceptos y opciones
-concepto_list = ["Trabajo", "Extra", "Equipo", "Material", "Transporte"]
+concepto_list = ["Trabajo", "Horas", "Material", "Transporte", "Extra"]
 
 # Checkbuttons de los conceptos con caja de entrada de valores
 # Entrys por columnas 
@@ -157,11 +177,11 @@ entry3_vars = list()
 contador = 0
 for concepto in concepto_list:
     concepto_opciones.append(IntVar())
-    cajas_texto = Checkbutton(concepto_frame_lbl, text=concepto, bd=2, bg=color_claro, fg=color_primario, font=("Helvetica",18), relief=FLAT, variable=concepto_opciones[contador], command=lambda cont=contador:activar_textos(cont))
+    cajas_texto = Checkbutton(concepto_frame_lbl, text=concepto, bd=2, bg=Color_Claro, fg=Color_Oscuro, font=("Helvetica",18), relief=FLAT, variable=concepto_opciones[contador], command=lambda cont=contador:activar_textos(cont))
     cajas_texto.grid(row=contador,column=0,sticky=W, padx=30, pady=5)
 
     # Columna Entry 1
-    concepto_contador_ent_1.append(Entry(concepto_frame_lbl, font=("Helvetica",18), relief=FLAT, justify=CENTER, bd=2, width=7, state=DISABLED, fg=color_primario, bg=color_claro))
+    concepto_contador_ent_1.append(Entry(concepto_frame_lbl, font=("Helvetica",18), relief=FLAT, justify=CENTER, bd=2, width=7, state=DISABLED, fg=Color_Oscuro, bg=Color_Claro))
     concepto_contador_ent_1[contador].grid(row=contador,column=1,sticky=W)
     
     # Variable entry 2
@@ -169,7 +189,7 @@ for concepto in concepto_list:
     entry2_var.trace("w", lambda name,index,mode,var=entry2_var,cont=contador:update_entry3(var,cont))
     entry2_vars.append(entry2_var)
     # Segunda columna
-    concepto_contador_ent_2.append(Entry(concepto_frame_lbl, font=("Helvetica",18), relief=FLAT, justify=CENTER, bd=2, width=7, state=DISABLED, fg=color_primario, bg=color_claro, textvariable=entry2_vars[contador]))
+    concepto_contador_ent_2.append(Entry(concepto_frame_lbl, font=("Helvetica",18), relief=FLAT, justify=CENTER, bd=2, width=7, state=DISABLED, fg=Color_Oscuro, bg=Color_Claro, textvariable=entry2_vars[contador]))
     concepto_contador_ent_2[contador].grid(row=contador,column=2,sticky=W)
     
     # Variable entry 3
@@ -177,7 +197,7 @@ for concepto in concepto_list:
     entry3_var.trace('w',lambda name,index,mode,var=entry3_var,:update_subtotal())
     entry3_vars.append(entry3_var)
     # Tercera columna
-    concepto_contador_ent_3.append(Entry(concepto_frame_lbl, font=("Helvetica",18), relief=FLAT, justify=CENTER, bd=2, width=7, state=DISABLED, fg=color_primario, bg=color_claro,textvariable=entry3_vars[contador]))
+    concepto_contador_ent_3.append(Entry(concepto_frame_lbl, font=("Helvetica",18), relief=FLAT, justify=CENTER, bd=2, width=7, state=DISABLED, fg=Color_Oscuro, bg=Color_Claro,textvariable=entry3_vars[contador]))
     concepto_contador_ent_3[contador].grid(row=contador,column=3,sticky=W)
     contador += 1
 
@@ -189,9 +209,9 @@ iva_var_ent.trace('w',lambda name,index,mode,var=iva_var_ent,tipus="IVA":update_
 iva_total_var = DoubleVar()
 iva_total_var.trace('w',lambda name,index,mode:update_total())
 
-iva_cb = Checkbutton(concepto_frame_lbl, text="IVA", bd=1, bg=color_claro, fg=color_primario, font=("Helvetica",18), relief=FLAT, variable=iva_var_cb, command=lambda:activa_impostos('IVA'))
-iva_ent = Entry(concepto_frame_lbl, font=("Helvetica",18), relief=FLAT, justify=CENTER, bd=2, width=7, state=DISABLED, fg=color_primario, bg=color_claro, textvariable=iva_var_ent)
-iva_total_ent = Entry(concepto_frame_lbl, font=("Helvetica",18), relief=FLAT, justify=CENTER, bd=2, width=7, state=DISABLED, fg=color_primario, bg=color_claro,textvariable=iva_total_var)
+iva_cb = Checkbutton(concepto_frame_lbl, text="IVA", bd=1, bg=Color_Claro, fg=Color_Oscuro, font=("Helvetica",18), relief=FLAT, variable=iva_var_cb, command=lambda:activa_impostos('IVA'))
+iva_ent = Entry(concepto_frame_lbl, font=("Helvetica",18), relief=FLAT, justify=CENTER, bd=2, width=7, state=DISABLED, fg=Color_Oscuro, bg=Color_Claro, textvariable=iva_var_ent)
+iva_total_ent = Entry(concepto_frame_lbl, font=("Helvetica",18), relief=FLAT, justify=CENTER, bd=2, width=7, state=DISABLED, fg=Color_Oscuro, bg=Color_Claro,textvariable=iva_total_var)
 
 ## IRPF
 irpf_var_cb = IntVar()
@@ -200,9 +220,9 @@ irpf_var_ent.trace('w',lambda name,index,mode,var=irpf_var_ent,tipus="IRPF":upda
 irpf_total_var = DoubleVar()
 irpf_total_var.trace('w',lambda name,index,mode:update_total())
 
-irpf_cb = Checkbutton(concepto_frame_lbl, text="IRPF", bd=2, bg=color_claro, fg=color_primario, font=("Helvetica",18), relief=FLAT, variable=irpf_var_cb, command=lambda:activa_impostos('IRPF'))
-irpf_ent = Entry(concepto_frame_lbl, font=("Helvetica",18), relief=FLAT, justify=CENTER, bd=2, width=7, state=DISABLED, fg=color_primario, bg=color_claro, textvariable=irpf_var_ent)
-irpf_total_ent = Entry(concepto_frame_lbl, font=("Helvetica",18), relief=FLAT, justify=CENTER, bd=2, width=7, state=DISABLED, fg=color_primario, bg=color_claro,textvariable=irpf_total_var)
+irpf_cb = Checkbutton(concepto_frame_lbl, text="IRPF", bd=2, bg=Color_Claro, fg=Color_Oscuro, font=("Helvetica",18), relief=FLAT, variable=irpf_var_cb, command=lambda:activa_impostos('IRPF'))
+irpf_ent = Entry(concepto_frame_lbl, font=("Helvetica",18), relief=FLAT, justify=CENTER, bd=2, width=7, state=DISABLED, fg=Color_Oscuro, bg=Color_Claro, textvariable=irpf_var_ent)
+irpf_total_ent = Entry(concepto_frame_lbl, font=("Helvetica",18), relief=FLAT, justify=CENTER, bd=2, width=7, state=DISABLED, fg=Color_Oscuro, bg=Color_Claro,textvariable=irpf_total_var)
 
 iva_cb.grid(row=6,column=0)
 iva_ent.grid(row=6,column=1,columnspan=2)
@@ -215,13 +235,13 @@ irpf_total_ent.grid(row=7,column=3)
 ## Subtotal
 subtotal_var = DoubleVar(value=0.00)
 subtotal_var.trace('w',lambda name,index,mode:update_total())
-subtotal_lbl = Label(concepto_frame_lbl, text="Subtotal", bd=2, bg=color_claro, fg=color_primario, font=("Helvetica",18))
-subtotal_ent = Entry(concepto_frame_lbl, font=("Helvetica",18), relief=FLAT, justify=CENTER,state=DISABLED, bd=2, width=23, fg=color_primario, bg=color_claro,textvariable=subtotal_var)
+subtotal_lbl = Label(concepto_frame_lbl, text="Subtotal", bd=2, bg=Color_Claro, fg=Color_Oscuro, font=("Helvetica",18))
+subtotal_ent = Entry(concepto_frame_lbl, font=("Helvetica",18), relief=FLAT, justify=CENTER,state=DISABLED, bd=2, width=23, fg=Color_Oscuro, bg=Color_Claro,textvariable=subtotal_var)
 
 ## Total
 total_var = DoubleVar(value=0.00)
-total_lbl = Label(concepto_frame_lbl, text="Total", bd=2, bg=color_claro, fg=color_primario, font=("Helvetica",18))
-total_ent = Entry(concepto_frame_lbl, font=("Helvetica",18), relief=FLAT, justify=CENTER,state=DISABLED, bd=2, width=23, fg=color_primario, bg=color_claro,textvariable=total_var)
+total_lbl = Label(concepto_frame_lbl, text="Total", bd=2, bg=Color_Claro, fg=Color_Oscuro, font=("Helvetica",18))
+total_ent = Entry(concepto_frame_lbl, font=("Helvetica",18), relief=FLAT, justify=CENTER,state=DISABLED, bd=2, width=23, fg=Color_Oscuro, bg=Color_Claro,textvariable=total_var)
 
 subtotal_lbl.grid(row=5, column=0)
 subtotal_ent.grid(row=5, column=1,columnspan=3)
@@ -230,14 +250,14 @@ total_ent.grid(row=8, column=1,columnspan=3)
 
 
 #Botones de funciones
-pres_btn = Button(botones_frame_lbl, text="Calcular Presupuesto", font=("Helvetica",18), bd=1, padx=5, pady=5, width=36, relief=FLAT, bg=color_claro, fg=color_primario,command=calc_pressupost)
-fact_btn = Button(botones_frame_lbl, text="Generar Factura", font=("Helvetica",18), bd=1, padx=5, pady=5, width=36, relief=FLAT, bg=color_claro, fg=color_primario,command=fer_factura)
-reg_btn = Button(botones_frame_lbl, text="Registro Histórico", font=("Helvetica",18), bd=1, padx=5, pady=5, width=36, relief=FLAT, bg=color_claro, fg=color_primario,command=historial)
-mail_btn = Button(botones_frame_lbl, text="Enviar email", font=("Helvetica",18), bd=1, padx=5, pady=5, width=36, relief=FLAT, bg=color_claro, fg=color_primario,command=send_mail)
+pres_btn = Button(botones_frame_lbl, text="Calcular Presupuesto", font=("Helvetica",18), bd=1, padx=5, pady=5, width=36, relief=FLAT, bg=Color_Claro, fg=Color_Oscuro,command=calc_pressupost)
+fact_btn = Button(botones_frame_lbl, text="Generar Factura", font=("Helvetica",18), bd=1, padx=5, pady=5, width=36, relief=FLAT, bg=Color_Claro, fg=Color_Oscuro,command=fer_factura)
+reg_btn = Button(botones_frame_lbl, text="Registro Histórico", font=("Helvetica",18), bd=1, padx=5, pady=5, width=36, relief=FLAT, bg=Color_Claro, fg=Color_Oscuro,command=historial)
+mail_btn = Button(botones_frame_lbl, text="Enviar email", font=("Helvetica",18), bd=1, padx=5, pady=5, width=36, relief=FLAT, bg=Color_Claro, fg=Color_Oscuro,command=send_mail)
 
 pres_btn.grid(row=0)
 fact_btn.grid(row=1)
 reg_btn.grid(row=2)
 mail_btn.grid(row=3)
 
-main.mainloop()
+app.mainloop()
