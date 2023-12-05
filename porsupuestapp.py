@@ -92,7 +92,7 @@ def update_total():
     total_var.set(0.00)
     suma = subtotal_var.get()
     suma += iva_total_var.get()
-    suma += irpf_total_var.get()
+    suma -= irpf_total_var.get()
     total_var.set(round(suma,2))
 
 # Comença programa
