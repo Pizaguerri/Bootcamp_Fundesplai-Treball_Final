@@ -3,6 +3,8 @@
 from tkinter import *
 from tkinter import ttk
 import csv
+#import popup_datos_profesional
+#import popup_datos_cliente
 
 # Estilos
 Color_Oscuro = "#373737"
@@ -10,9 +12,7 @@ Color_Claro = "#f8f8f8"
 Color_Azul = "#1183b8"
 Color_Naranja = "#f48d24"
 Gris_Claro = "#ecedec"
-# Estilo = ttk.Style()
-# Estilo.configure('tema_base', background=Color_Oscuro)
-# Estilo.configure('tema1.tema_base', background=Color_Oscuro, foreground=Color_Claro, font=("Helvetica", 18))
+
 
 # Funciones de los Conceptos
 ## Activa los campos Entry con cada Checkbox de los conceptos
@@ -97,15 +97,13 @@ def update_total():
 
 
 # Funciones de los Botones
-## Traspasa los Totales de los conceptos e impuestos y totales
-def calc_pressupost():
-    pass
-
-## Genera una factura en PDF
+## Genera una factura en PDF 
+# # (Import generarpdf.py)
 def fer_factura():
     pass
 
-## Registra las facturas generadas por número de recibo (Opción a eliminar y actualizar número de recibo)
+## Registra las facturas generadas por número de recibo (Opción a eliminar y actualizar número de recibo) 
+# # (??????)
 def historial():
     pass
 
@@ -142,13 +140,15 @@ app.minsize(625, 675)
 
 # Tabs
 paginas = ttk.Notebook(app)
-#paginas.config(bg=Color_Oscuro)
-tab1 = ttk.Frame(paginas)
+s = ttk.Style(paginas)
+s.configure('TFrame', background=Color_Oscuro)
+tab1 = ttk.Frame(paginas, style='TFrame') ############################No cambia el color del frame al Color Oscuro
 tab2 = ttk.Frame(paginas)
 tab3 = ttk.Frame(paginas)
 paginas.add(tab1, text ='Calculadora')
 paginas.add(tab2, text ='Historial')
 paginas.add(tab3, text ='Datos del Profesional')
+#paginas.add(tab3, popup_datos_profesional.py.main(), text ='Datos del Profesional')
 paginas.pack(expand = 1, fill ="both")
 
 
@@ -264,15 +264,15 @@ total_lbl.grid(row=8, column=0)
 total_ent.grid(row=8, column=1,columnspan=3)
 
 # Agregar Más
-boton_mas = Button(concepto_frame, text="Agregar Conceptos", command=lambda: agregar_campo())
+boton_mas = Button(concepto_frame, text="Agregar Conceptos", font=("Helvetica",14), bd=0, padx=5, pady=5, relief=FLAT, bg=Gris_Claro, fg=Color_Oscuro, command=lambda: agregar_campo())
 # boton_mas.grid(row=9, column=0)
-boton_mas.pack(side="bottom", anchor="center")
+boton_mas.pack(side="bottom", anchor="center", padx=2, pady=10)
 
 # Botones de funciones
-pres_btn = Button(botones_frame_lbl, text="Calcular Presupuesto", font=("Helvetica",18), bd=2, padx=5, pady=5, width=40, relief=FLAT, bg=Color_Claro, fg=Color_Oscuro,command=calc_pressupost)
-fact_btn = Button(botones_frame_lbl, text="Generar Factura", font=("Helvetica",18), bd=2, padx=5, pady=5, width=40, relief=FLAT, bg=Color_Claro, fg=Color_Oscuro,command=fer_factura)
-# reg_btn = Button(botones_frame_lbl, text="Registro Histórico", font=("Helvetica",18), bd=2, padx=5, pady=5, width=40, relief=FLAT, bg=Color_Claro, fg=Color_Oscuro,command=historial)
-mail_btn = Button(botones_frame_lbl, text="Enviar email", font=("Helvetica",18), bd=2, padx=5, pady=5, width=40, relief=FLAT, bg=Color_Claro, fg=Color_Oscuro,command=send_mail)
+pres_btn = Button(botones_frame_lbl, text="Calcular Presupuesto", font=("Helvetica",18), bd=0, padx=5, pady=5, width=40, relief=FLAT, bg=Gris_Claro, fg=Color_Oscuro,command=calc_pressupost)
+fact_btn = Button(botones_frame_lbl, text="Generar Factura", font=("Helvetica",18), bd=0, padx=5, pady=5, width=40, relief=FLAT, bg=Gris_Claro, fg=Color_Oscuro,command=fer_factura)
+# reg_btn = Button(botones_frame_lbl, text="Registro Histórico", font=("Helvetica",18), bd=0, padx=5, pady=5, width=40, relief=FLAT, bg=Gris_Claro, fg=Color_Oscuro,command=historial)
+mail_btn = Button(botones_frame_lbl, text="Enviar email", font=("Helvetica",18), bd=0, padx=5, pady=5, width=40, relief=FLAT, bg=Gris_Claro, fg=Color_Oscuro,command=send_mail)
 
 pres_btn.grid(row=0)
 fact_btn.grid(row=1)

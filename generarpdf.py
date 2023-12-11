@@ -9,21 +9,21 @@ num_factura = ""
 
 #Porsupuestapp
 
-# ## Recoger Datos de Profesional
+# Recoger Datos de Profesional
 # with open("datos_profesional.csv") as datos_profesional:
-#     reader = csv.reader(datos_profesional)
-#     for row in reader:
+#     profesional = csv.reader(datos_profesional)
+#     for row in profesional:
 #         datos_profesional = f""
 #         print(datos_profesional)
-# ## Recoger Datos de Cliente
+# # Recoger Datos de Cliente
 # with open("datos_cliente.csv") as datos_cliente:
-#     reader = csv.reader(datos_cliente)
-#     for row in reader:
+#     cliente = csv.reader(datos_cliente)
+#     for row in cliente:
 #         datos_cliente = f""
 #         print(datos_cliente)
 
 ## Profesional
-logo = "icono_camara.png"
+# logo = "icono_camara.png"
 nom_empresa_profesional = "Pablo Izaguerri"
 direccion_profesional = "Calle Roma, 155"
 zip_profesional = "08011"
@@ -75,7 +75,7 @@ iban = "ESXX XXXX XXXX XXXX"
 swift = "XXXX XX XX XXX"
 
 datos = {
-        'logo' : logo,
+        # 'logo' : logo,
         'nom_empresa_profesional' : nom_empresa_profesional,
         'direccion_profesional' : direccion_profesional,
         'zip_profesional' : zip_profesional,
