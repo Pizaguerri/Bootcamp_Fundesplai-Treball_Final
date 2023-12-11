@@ -61,6 +61,15 @@ if __name__ == '__main__':
     salir.pack(side=LEFT, padx=2, pady=2)
     salir.place(in_=popup_cliente_frame, anchor='sw', relx=25)
 
+# Función que se ejecuta al hacer clic en el botón de "Aceptar"
+def aceptar_datos(cuadros_de_texto_popup):
+    # Obtiene los datos de los cuadros de texto del pop up
+    datos = [cuadro_de_texto.get() for cuadro_de_texto in cuadros_de_texto_popup]
 
+    # Abre el archivo CSV en modo de escritura
+    with open("datos.csv", "w", newline="") as archivo:
+        # Escribe los datos en el archivo CSV
+        escritor = csv.writer(archivo)
+        escritor.writerow(datos)
 
 popup_cliente.mainloop()
