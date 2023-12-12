@@ -7,37 +7,24 @@ import csv
 today = datetime.today().strftime('%d de %b de %Y')
 num_factura = ""
 
-#Porsupuestapp
+# Porsupuestapp
 
-# Recoger Datos de Profesional
-# with open("datos_profesional.csv") as datos_profesional:
-#     profesional = csv.reader(datos_profesional)
-#     for row in profesional:
-#         datos_profesional = f""
-#         print(datos_profesional)
-# # Recoger Datos de Cliente
-# with open("datos_cliente.csv") as datos_cliente:
-#     cliente = csv.reader(datos_cliente)
-#     for row in cliente:
-#         datos_cliente = f""
-#         print(datos_cliente)
+# ## Profesional
+# # logo = "icono_camara.png"
+# nom_empresa_profesional = "Pablo Izaguerri"
+# direccion_profesional = "Calle Roma, 155"
+# zip_profesional = "08011"
+# telefono_profesional = "699 657 4554"
+# email_profesional = "mailto@gmail.com"
+# portfolio_profesional = "www.pabloizaguerri.com"
+# cif_profesional = "5555555-Y"
 
-## Profesional
-# logo = "icono_camara.png"
-nom_empresa_profesional = "Pablo Izaguerri"
-direccion_profesional = "Calle Roma, 155"
-zip_profesional = "08011"
-telefono_profesional = "699 657 4554"
-email_profesional = "mailto@gmail.com"
-portfolio_profesional = "www.pabloizaguerri.com"
-cif_profesional = "5555555-Y"
-
-## Cliente
-nom_empresa_cliente = "Fundesplai"
-direccion_cliente = "Carrer Estrella"
-zip_cliente = "08009"
-telefono_cliente = "699 998 998"
-cif_cliente = "65756547-A"
+# ## Cliente
+# nom_empresa_cliente = "Fundesplai"
+# direccion_cliente = "Carrer Estrella"
+# zip_cliente = "08009"
+# telefono_cliente = "699 998 998"
+# cif_cliente = "65756547-A"
 
 ## Trabajo
 trabajo_unidades = "5"

@@ -125,7 +125,10 @@ def agregar_campo():
         # cajas_texto = Checkbutton(concepto_frame_lbl, text=concepto, bd=2, bg=Color_Claro, fg=Color_Oscuro, font=("Helvetica",18), relief=FLAT, variable=concepto_opciones[contador], command=lambda cont=contador:activar_textos(cont))
         # cajas_texto.grid(row=contador,column=0,sticky=W, padx=30, pady=5)
 
-
+def agregar_concepto():
+    nuevo_concepto = input("Introduce el nuevo elemento: ")
+    
+    concepto_list.append(nuevo_concepto)
 
 
 # Abrir programa
@@ -215,6 +218,8 @@ for concepto in concepto_list:
     concepto_contador_ent_3.append(Entry(concepto_frame_lbl, font=("Helvetica",18), relief=FLAT, justify=CENTER, bd=2, width=8, state=DISABLED, fg=Color_Oscuro, bg=Color_Claro,textvariable=entry3_vars[contador]))
     concepto_contador_ent_3[contador].grid(row=contador,column=3,sticky=W)
     contador += 1
+    # Conceptos nuevos
+
 
 # Calcular Impuestos
 ## IVA
@@ -224,7 +229,7 @@ iva_var_ent.trace('w',lambda name,index,mode,var=iva_var_ent,tipus="IVA":update_
 iva_total_var = DoubleVar()
 iva_total_var.trace('w',lambda name,index,mode:update_total())
 
-iva_cb = Checkbutton(concepto_frame_lbl, text="IVA", bd=1, bg=Color_Claro, fg=Color_Oscuro, font=("Helvetica",18), relief=FLAT, variable=iva_var_cb, command=lambda:activa_impostos('IVA'))
+iva_cb = Checkbutton(concepto_frame_lbl, text="IVA", bd=2, bg=Color_Claro, fg=Color_Oscuro, font=("Helvetica",18), relief=FLAT, variable=iva_var_cb, command=lambda:activa_impostos('IVA'))
 iva_ent = Entry(concepto_frame_lbl, font=("Helvetica",18), relief=FLAT, justify=CENTER, bd=2, width=18, state=DISABLED, fg=Color_Oscuro, bg=Color_Claro, textvariable=iva_var_ent)
 iva_total_ent = Entry(concepto_frame_lbl, font=("Helvetica",18), relief=FLAT, justify=CENTER, bd=2, width=8, state=DISABLED, fg=Color_Oscuro, bg=Color_Claro,textvariable=iva_total_var)
 
@@ -264,17 +269,17 @@ total_lbl.grid(row=8, column=0)
 total_ent.grid(row=8, column=1,columnspan=3)
 
 # Agregar Más
-boton_mas = Button(concepto_frame, text="Agregar Conceptos", font=("Helvetica",14), bd=0, padx=5, pady=5, relief=FLAT, bg=Gris_Claro, fg=Color_Oscuro, command=lambda: agregar_campo())
+boton_mas = Button(concepto_frame, text="Agregar Conceptos", font=("Helvetica",14), bd=0, padx=5, pady=5, relief=FLAT, bg=Gris_Claro, fg=Color_Oscuro, command=lambda: agregar_concepto())
 # boton_mas.grid(row=9, column=0)
 boton_mas.pack(side="bottom", anchor="center", padx=2, pady=10)
 
 # Botones de funciones
-pres_btn = Button(botones_frame_lbl, text="Calcular Presupuesto", font=("Helvetica",18), bd=0, padx=5, pady=5, width=40, relief=FLAT, bg=Gris_Claro, fg=Color_Oscuro,command=calc_pressupost)
+#pres_btn = Button(botones_frame_lbl, text="Calcular Presupuesto", font=("Helvetica",18), bd=0, padx=5, pady=5, width=40, relief=FLAT, bg=Gris_Claro, fg=Color_Oscuro,command=calc_pressupost)
 fact_btn = Button(botones_frame_lbl, text="Generar Factura", font=("Helvetica",18), bd=0, padx=5, pady=5, width=40, relief=FLAT, bg=Gris_Claro, fg=Color_Oscuro,command=fer_factura)
 # reg_btn = Button(botones_frame_lbl, text="Registro Histórico", font=("Helvetica",18), bd=0, padx=5, pady=5, width=40, relief=FLAT, bg=Gris_Claro, fg=Color_Oscuro,command=historial)
 mail_btn = Button(botones_frame_lbl, text="Enviar email", font=("Helvetica",18), bd=0, padx=5, pady=5, width=40, relief=FLAT, bg=Gris_Claro, fg=Color_Oscuro,command=send_mail)
 
-pres_btn.grid(row=0)
+#pres_btn.grid(row=0)
 fact_btn.grid(row=1)
 # reg_btn.grid(row=2)
 mail_btn.grid(row=2)

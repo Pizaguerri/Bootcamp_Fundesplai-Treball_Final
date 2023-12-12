@@ -1,5 +1,2 @@
-nom_empresa_cliente = "Fundesplai"
-direccion_cliente = "Carrer Estrella"
-zip_cliente = "08009"
-telefono_cliente = "699 998 998"
-cif_cliente = "65756547-A"
+Cliente,Direccion,CP,Telefono,Email,CIF
+Fundesplai estrella 7,Carrer Estrella,08009,699 998 998,mail@gmail.com,65756547-A
