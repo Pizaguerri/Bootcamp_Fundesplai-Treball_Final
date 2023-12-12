@@ -148,9 +148,11 @@ s.configure('TFrame', background=Color_Oscuro)
 tab1 = ttk.Frame(paginas, style='TFrame') ############################No cambia el color del frame al Color Oscuro
 tab2 = ttk.Frame(paginas)
 tab3 = ttk.Frame(paginas)
+tab4 = ttk.Frame(paginas)
 paginas.add(tab1, text ='Calculadora')
 paginas.add(tab2, text ='Historial')
 paginas.add(tab3, text ='Datos del Profesional')
+paginas.add(tab4, text ='Datos del Cliente')
 #paginas.add(tab3, popup_datos_profesional.py.main(), text ='Datos del Profesional')
 paginas.pack(expand = 1, fill ="both")
 
