@@ -18,21 +18,31 @@ with open("datos_profesional.csv", "r", encoding="utf-8") as datos_profesional:
 #print(dict_datos_profesional)
 
 ## Lista de Labels de los Entries de Datos Profesionales
-datos_profesionales = ['Profesional', 'Direccion', 'CP', 'CIF', 'Telefono', 'Email', 'Portfolio']
+datos_profesionales = ['Profesional', 'Direccion', 'CP', 'CIF', 'Telefono', 'Email', 'Portfolio', 'IBAN', 'SWIFT', 'Nuevo']
 
-## Genera los Entries y muestra los datos guardados por defecto, y recoge los datos de profesional sobreescritos
+## Genera los Entries y muestra los datos guardados por defecto, y recoge los datos de profesional sobreescritos. Deja los datos en blanco si existen.
 def guardar_datos_prof(popup_prof):
     entries = []
-    for datos in datos_profesionales:
-        #print(dict_datos_profesional[datos])
-        row = Frame(popup_prof)
-        lab = Label(row, width=15, text=datos, anchor=W)
-        ent = Entry(row)
-        ent.insert(END, dict_datos_profesional[datos])
-        row.pack(side=TOP, fill=X, padx=5, pady=5)
-        lab.pack(side=LEFT)
-        ent.pack(side=RIGHT, expand=YES, fill=X)
-        entries.append((datos, ent))
+    with open("datos_profesional.csv", "r", encoding="utf-8") as datos_profesional:
+        dato = csv.DictReader(datos_profesional)
+        dict_datos_profesional = next(dato)  # Lee la primera línea del archivo CSV
+        for datos in datos_profesionales:
+            row = Frame(popup_prof, bd=0, padx=0, pady=1, width=5, relief=FLAT, bg=color_claro)
+            lab = Label(row, width=15, text=datos, anchor=W, bd=0, padx=0, pady=1, relief=FLAT, bg=color_claro, fg=color_primario)
+            ent = Entry(row,bg=color_claro,fg=color_primario)
+            valor = dict_datos_profesional.get(datos, '')  # Obtiene el valor del diccionario o un string vacío si no existe
+            ent.insert(END, valor)
+            row.pack(side=TOP, fill=X, padx=5, pady=5)
+            lab.pack(side=LEFT)
+            ent.pack(side=RIGHT, expand=YES, fill=X)
+            entries.append((datos, ent))
+
+            # Botón Guardar al final de los Entries
+        guardar = Button(popup_prof, text='Guardar', font=("Helvetica", 18), bd=0, padx=5, pady=5,
+                         width=15, relief=FLAT, bg=color_claro, fg=color_primario,
+                         command=(lambda e=entries: boton_save(e, dict_datos_profesional, datos_profesionales)))
+        guardar.pack(side=BOTTOM, padx=5, pady=15)
+        
     return entries
 
 
@@ -53,34 +63,20 @@ def boton_save(entries, dict_datos_profesional, datos_profesionales):
 popup_prof.title("Datos de Profesional")
 popup_prof.config(bg=color_primario)
 popup_prof.resizable(1,1)
-popup_prof.minsize(600, 600)
-popup_prof.maxsize(800, 800)
+popup_prof.minsize(625, 675)
+#popup_prof.maxsize(825, 875)
 
 # Frames 
-top_frame = Frame(popup_prof,bd=10,relief=FLAT, bg=color_claro)
-top_frame.pack(side=TOP, fill="both", expand=True, padx=20, pady=20)
-top_frame.place(in_=popup_prof, anchor="c", relx=.5, rely=.5)
-
-popup_prof_frame = Frame(top_frame,bd=0,relief=FLAT, bg=color_claro)
-popup_prof_frame.pack(side=TOP, fill="both", expand=True, padx=10, pady=10)
-popup_prof_frame.place(in_=top_frame, anchor="c", relx=.5, rely=.5)
+popup_prof_frame = Frame(popup_prof,bd=20,relief=FLAT, bg=color_claro)
+popup_prof_frame.pack(side=BOTTOM, fill="both", expand=True, padx=10, pady=10)
+popup_prof_frame.place(in_=popup_prof, anchor="c", relx=.5, rely=.5)
 popup_prof_frame_lbl = LabelFrame(popup_prof_frame,font=("Helvetica",18),text="Introducir datos de profesional",fg=color_primario, bg=color_claro)
 
-boton_prof_frame = Frame(popup_prof_frame, bd=0, bg= color_claro)
-boton_prof_frame.grid(row=1, column=0)
-boton_prof_frame.pack(side=BOTTOM)
 
-
-# Genera los botones Guardar y Salir
+# Botón Guardar guarda
 if __name__ == '__main__':
-    ents = guardar_datos_prof(popup_prof)
+    ents = guardar_datos_prof(popup_prof_frame)
     popup_prof.bind('<Return>', (lambda e=ents: boton_save(e, dict_datos_profesional, datos_profesionales)))   
-    guardar = Button(popup_prof, text='Guardar', font=("Helvetica",18), bd=0, padx=5, pady=5, width=15, relief=FLAT, bg=color_claro, fg=color_primario, command=(lambda e=ents: boton_save(e, dict_datos_profesional, datos_profesionales)))
-    guardar.pack(side=RIGHT, padx=2, pady=2)
-    guardar.place(in_=popup_prof_frame, anchor='se', relx=-25)
-    salir = Button(popup_prof, text='Salir', font=("Helvetica",18), bd=0, padx=5, pady=5, width=15, relief=FLAT, bg=color_claro, fg=color_primario, command=popup_prof.quit)
-    salir.pack(side=LEFT, padx=2, pady=2)
-    salir.place(in_=popup_prof_frame, anchor='sw', relx=25)
 
 
 popup_prof.mainloop()

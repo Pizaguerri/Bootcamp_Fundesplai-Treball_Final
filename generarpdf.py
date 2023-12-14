@@ -7,24 +7,25 @@ import csv
 today = datetime.today().strftime('%d de %b de %Y')
 num_factura = ""
 
-# Porsupuestapp
 
-# ## Profesional
-# # logo = "icono_camara.png"
-# nom_empresa_profesional = "Pablo Izaguerri"
-# direccion_profesional = "Calle Roma, 155"
-# zip_profesional = "08011"
-# telefono_profesional = "699 657 4554"
-# email_profesional = "mailto@gmail.com"
-# portfolio_profesional = "www.pabloizaguerri.com"
-# cif_profesional = "5555555-Y"
+# Recoge datos de HTML para el PDF
 
-# ## Cliente
-# nom_empresa_cliente = "Fundesplai"
-# direccion_cliente = "Carrer Estrella"
-# zip_cliente = "08009"
-# telefono_cliente = "699 998 998"
-# cif_cliente = "65756547-A"
+## Profesional
+# logo = "icono_camara.png"
+nom_empresa_profesional = "Pablo Izaguerri"
+direccion_profesional = "Calle Roma, 155"
+zip_profesional = "08011"
+telefono_profesional = "699 657 4554"
+email_profesional = "mailto@gmail.com"
+portfolio_profesional = "www.pabloizaguerri.com"
+cif_profesional = "5555555-Y"
+
+## Cliente
+nom_empresa_cliente = "Fundesplai"
+direccion_cliente = "Carrer Estrella"
+zip_cliente = "08009"
+telefono_cliente = "699 998 998"
+cif_cliente = "65756547-A"
 
 ## Trabajo
 trabajo_unidades = "5"
@@ -99,16 +100,20 @@ datos = {
         }
 
 
-template_loader = jinja2.FileSystemLoader("")
+# Generador de PDF según los datos que recoge
+## Ruta HTML y CSS
+ruta = "/Users/pabloizaguerri/Documents/Python_2023/Treball Final/"
+## Carga las plantillas
+template_loader = jinja2.FileSystemLoader(searchpath=ruta)
 template_env = jinja2.Environment(loader=template_loader)
-plantilla_html = template_env.get_template("./factura.html")
+plantilla_html = template_env.get_template("factura.html")
+
+#datos = {}
 
 output_text = plantilla_html.render(datos)
-
-config = pdfkit.configuration(wkhtmltopdf = "/usr/local/bin/wkhtmltopdf")
-# input which wkhtmltopdf
-
-nombre_pdf = (f"factura_{num_factura}.pdf")
-pdfkit.from_string(output_text, nombre_pdf, configuration=config, css='./style.css')
-
-
+config = pdfkit.configuration(wkhtmltopdf="/usr/local/bin/wkhtmltopdf") #which wkhtmltopdf
+ultima_factura_generada = 1
+num_factura = ultima_factura_generada + 1
+nombre_pdf = f"factura_{num_factura:03}.pdf"  #3 números a la factura
+css = f"{ruta}style.css"
+pdfkit.from_string(output_text, nombre_pdf, configuration=config, css=css)

@@ -99,7 +99,7 @@ def update_total():
 # Funciones de los Botones
 ## Genera una factura en PDF 
 # # (Import generarpdf.py)
-def fer_factura():
+def generar_factura():
     pass
 
 ## Registra las facturas generadas por número de recibo (Opción a eliminar y actualizar número de recibo) 
@@ -108,7 +108,7 @@ def historial():
     pass
 
 ## Envía las facturas por email
-def send_mail():
+def enviar_mail():
     pass
 
 
@@ -220,7 +220,8 @@ for concepto in concepto_list:
     concepto_contador_ent_3.append(Entry(concepto_frame_lbl, font=("Helvetica",18), relief=FLAT, justify=CENTER, bd=2, width=8, state=DISABLED, fg=Color_Oscuro, bg=Color_Claro,textvariable=entry3_vars[contador]))
     concepto_contador_ent_3[contador].grid(row=contador,column=3,sticky=W)
     contador += 1
-    # Conceptos nuevos
+
+# Conceptos dinámicos
 
 
 # Calcular Impuestos
@@ -277,9 +278,9 @@ boton_mas.pack(side="bottom", anchor="center", padx=2, pady=10)
 
 # Botones de funciones
 #pres_btn = Button(botones_frame_lbl, text="Calcular Presupuesto", font=("Helvetica",18), bd=0, padx=5, pady=5, width=40, relief=FLAT, bg=Gris_Claro, fg=Color_Oscuro,command=calc_pressupost)
-fact_btn = Button(botones_frame_lbl, text="Generar Factura", font=("Helvetica",18), bd=0, padx=5, pady=5, width=40, relief=FLAT, bg=Gris_Claro, fg=Color_Oscuro,command=fer_factura)
+fact_btn = Button(botones_frame_lbl, text="Generar Factura", font=("Helvetica",18), bd=0, padx=5, pady=5, width=40, relief=FLAT, bg=Gris_Claro, fg=Color_Oscuro,command=generar_factura)
 # reg_btn = Button(botones_frame_lbl, text="Registro Histórico", font=("Helvetica",18), bd=0, padx=5, pady=5, width=40, relief=FLAT, bg=Gris_Claro, fg=Color_Oscuro,command=historial)
-mail_btn = Button(botones_frame_lbl, text="Enviar email", font=("Helvetica",18), bd=0, padx=5, pady=5, width=40, relief=FLAT, bg=Gris_Claro, fg=Color_Oscuro,command=send_mail)
+mail_btn = Button(botones_frame_lbl, text="Enviar email", font=("Helvetica",18), bd=0, padx=5, pady=5, width=40, relief=FLAT, bg=Gris_Claro, fg=Color_Oscuro,command=enviar_mail)
 
 #pres_btn.grid(row=0)
 fact_btn.grid(row=1)
