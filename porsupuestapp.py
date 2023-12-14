@@ -157,10 +157,10 @@ app.resizable(1,1)
 app.minsize(625, 675)
 
 # Icono de la app
-# icon = "/Users/pabloizaguerri/Documents/Python_2023/Treball Final/"
-# load = Image.open("logo_porsupuestapp1.png")
-# render = ImageTk.PhotoImage(load)
-# app.iconphoto(False, render)
+icon = "/Users/pabloizaguerri/Documents/Python_2023/Treball Final/"
+load = Image.open("icon6.png")
+render = ImageTk.PhotoImage(load)
+app.iconphoto(False, render)
 
 
 # Tabs

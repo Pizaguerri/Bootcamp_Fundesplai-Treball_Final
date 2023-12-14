@@ -1,4 +1,5 @@
 Documentación
-frames_prof.txt
 .DS_Store
-style.css
+__pycache__
+Iconos
+.gitignore
