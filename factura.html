@@ -4,11 +4,94 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Factura</title>
-    <link rel="stylesheet" href="style.css" />
+  <!-- <link rel="stylesheet" href="style.css" /> -->
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+}
+main {
+    padding: 50px;
+}
+
+#primera {
+    display: flex;
+    justify-content: space-between;  
+}
+
+#datos_profesional {
+    text-align: left;
+    width: 40%;
+    font-size: 20px;
+}
+#datos_cliente {
+    text-align: right;
+    width: 40%;
+    font-size: 20px;
+}
+/*#logo{
+    width: 10%;
+    margin-left: 0px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}*/
+
+.nom_empresa {
+    font-size: 24px;
+    color: #1183b8;
+    border-bottom: 2px solid #1183b8;
+}
+table{
+    margin-top: 50px;
+    border: 2px;
+    width: 100%;
+    border-collapse: collapse;
+}
+.tres_columnas {
+    text-align: right;
+}
+
+.table_left{
+    text-align: left;
+}
+.table_center{
+    text-align: center;
+}
+.table_right{
+    text-align: right;
+}
+td, th {
+    border: 1px solid black;
+    padding: 5px;
+}
+
+thead{
+    background-color: #1183b8;
+    color: white;
+}
+
+.total{
+    font-size: 20px;
+    font-weight: bold;
+}
+#pago{
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+#firma{
+    margin-top: 50px;
+    height: 200px;
+}
+
+</style>
+
   </head>
   <body>
     <main>
-      <! – El logo de momento lo anulo <div <img id="logo" src="icono_camara.png" alt="icono camara" </div>
+      <!-- El logo de momento lo anulo <div <img id="logo" src="icono_camara.png" alt="icono camara" </div> -->
       <section id="primera">
         <div id="datos_profesional">
           <p class="nom_empresa">{{nom_empresa_profesional}}</p>
@@ -24,6 +107,7 @@
           <p>{{direccion_cliente}}</p>
           <p>{{zip_cliente}}</p>
           <p>{{telefono_cliente}}</p>
+          <p>{{email_cliente}}</p>
           <p>{{cif_cliente}}</p>
         </div>
       </section>

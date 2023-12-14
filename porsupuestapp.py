@@ -3,8 +3,10 @@
 from tkinter import *
 from tkinter import ttk
 import csv
+from PIL import Image, ImageTk
 #import popup_datos_profesional
 #import popup_datos_cliente
+from generarpdf import generar_factura
 
 # Estilos
 Color_Oscuro = "#373737"
@@ -13,6 +15,7 @@ Color_Azul = "#1183b8"
 Color_Naranja = "#f48d24"
 Gris_Claro = "#ecedec"
 
+dict_totals = {}
 
 # Funciones de los Conceptos
 ## Activa los campos Entry con cada Checkbox de los conceptos
@@ -61,6 +64,14 @@ def update_entry3(var,cont):
     else:
         entry3_vars[cont].set(0.00)
 
+## Recoge valores de entry total de cada concepto para crear un dict_totals
+def recoger_totals(var,cont):
+    if var.get().replace('.', '').isnumeric() and concepto_contador_ent_1[cont].get().replace('.', '').isnumeric():
+        return (round(float(concepto_contador_ent_1[cont].get())*float(var.get()),2))
+    else:
+        return
+
+
 ## IVA e IRPF 
 def update_impost(var,tipus):
     if tipus.lower() == "iva":
@@ -79,13 +90,17 @@ def update_impost(var,tipus):
                 irpf_total_ent.config(state=DISABLED)
 
 ## Subtotal, suma de productos de cada concepto
-def update_subtotal():
+def update_subtotal(diccionario, lista):
     subtotal_var.set(0.00)
     suma = subtotal_var.get()
+    contador = 0
     for entry_var in entry3_vars:
+        diccionario[lista[contador]] = entry_var.get()
         print(entry_var.get())
         suma += entry_var.get()
+        contador += 1
     subtotal_var.set(round(suma,2))
+    #print(diccionario)
 
 ## Total, suma de Subtotal e IVA y resta de IRPF
 def update_total():
@@ -99,8 +114,9 @@ def update_total():
 # Funciones de los Botones
 ## Genera una factura en PDF 
 # # (Import generarpdf.py)
-def generar_factura():
-    pass
+# def generar_factura(dict_totals):
+#     crear_pdf(dict_totals)
+
 
 ## Registra las facturas generadas por número de recibo (Opción a eliminar y actualizar número de recibo) 
 # # (??????)
@@ -139,6 +155,12 @@ app.title("PORSUPUESTAPP")
 app.config(bg=Color_Oscuro) #Color del fondo de la ventana
 app.resizable(1,1)
 app.minsize(625, 675)
+
+# Icono de la app
+# icon = "/Users/pabloizaguerri/Documents/Python_2023/Treball Final/"
+# load = Image.open("logo_porsupuestapp1.png")
+# render = ImageTk.PhotoImage(load)
+# app.iconphoto(False, render)
 
 
 # Tabs
@@ -194,6 +216,8 @@ concepto_contador_ent_3 = list()
 entry2_vars = list()
 entry3_vars = list()
 
+
+
 contador = 0
 for concepto in concepto_list:
     concepto_opciones.append(IntVar())
@@ -207,6 +231,7 @@ for concepto in concepto_list:
     # Variable entry 2
     entry2_var = StringVar()
     entry2_var.trace("w", lambda name,index,mode,var=entry2_var,cont=contador:update_entry3(var,cont))
+    #total = (lambda name,index,mode,var=entry2_var,cont=contador:update_entry3(var,cont))
     entry2_vars.append(entry2_var)
     # Segunda columna
     concepto_contador_ent_2.append(Entry(concepto_frame_lbl, font=("Helvetica",18), relief=FLAT, justify=CENTER, bd=2, width=8, state=DISABLED, fg=Color_Oscuro, bg=Color_Claro, textvariable=entry2_vars[contador]))
@@ -214,13 +239,16 @@ for concepto in concepto_list:
     
     # Variable entry 3
     entry3_var = DoubleVar()
-    entry3_var.trace('w',lambda name,index,mode,var=entry3_var,:update_subtotal())
+    entry3_var.trace('w',lambda name,index,mode,var=entry3_var,:update_subtotal(dict_totals, concepto_list))
     entry3_vars.append(entry3_var)
     # Tercera columna
     concepto_contador_ent_3.append(Entry(concepto_frame_lbl, font=("Helvetica",18), relief=FLAT, justify=CENTER, bd=2, width=8, state=DISABLED, fg=Color_Oscuro, bg=Color_Claro,textvariable=entry3_vars[contador]))
     concepto_contador_ent_3[contador].grid(row=contador,column=3,sticky=W)
     contador += 1
 
+    #dict_totals[concepto] = total #Rellena diccionario con conceptos
+
+#print(dict_totals)
 # Conceptos dinámicos
 
 
@@ -276,9 +304,10 @@ boton_mas = Button(concepto_frame, text="Agregar Conceptos", font=("Helvetica",1
 # boton_mas.grid(row=9, column=0)
 boton_mas.pack(side="bottom", anchor="center", padx=2, pady=10)
 
+print(dict_totals)
 # Botones de funciones
 #pres_btn = Button(botones_frame_lbl, text="Calcular Presupuesto", font=("Helvetica",18), bd=0, padx=5, pady=5, width=40, relief=FLAT, bg=Gris_Claro, fg=Color_Oscuro,command=calc_pressupost)
-fact_btn = Button(botones_frame_lbl, text="Generar Factura", font=("Helvetica",18), bd=0, padx=5, pady=5, width=40, relief=FLAT, bg=Gris_Claro, fg=Color_Oscuro,command=generar_factura)
+fact_btn = Button(botones_frame_lbl, text="Generar Factura", font=("Helvetica",18), bd=0, padx=5, pady=5, width=40, relief=FLAT, bg=Gris_Claro, fg=Color_Oscuro,command=lambda:generar_factura(dict_totals))
 # reg_btn = Button(botones_frame_lbl, text="Registro Histórico", font=("Helvetica",18), bd=0, padx=5, pady=5, width=40, relief=FLAT, bg=Gris_Claro, fg=Color_Oscuro,command=historial)
 mail_btn = Button(botones_frame_lbl, text="Enviar email", font=("Helvetica",18), bd=0, padx=5, pady=5, width=40, relief=FLAT, bg=Gris_Claro, fg=Color_Oscuro,command=enviar_mail)
 
