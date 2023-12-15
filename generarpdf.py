@@ -5,9 +5,8 @@ from datetime import datetime
 import csv
 #from porsupuestapp import dict_totals
 
-def generar_factura(dict_totals):
-        # print("pdf")
-        # print(dict_totals)
+def generar_factura(dict_totals, dict_tax, dict_precio, dict_unidades):
+
         today = datetime.today().strftime('%d de %b de %Y')
 
 
@@ -49,36 +48,42 @@ def generar_factura(dict_totals):
         cif_cliente = dict_datos_cliente['CIF']
 
         ## Trabajo
-        trabajo_unidades = "5"
-        trabajo_precio_unitario = "25"
+        trabajo_unidades = dict_unidades['Trabajo']
+        trabajo_precio_unitario = dict_precio['Trabajo']
         trabajo_total = dict_totals['Trabajo']
 
         ## Horas
-        horas_unidades = "5"
-        horas_precio_unitario = "25"
+        horas_unidades = dict_unidades['Horas']
+        horas_precio_unitario = dict_precio['Horas']
         horas_total = dict_totals['Horas']
 
         ## Material
-        material_unidades = "5"
-        material_precio_unitario = "25"
+        material_unidades = dict_unidades['Material']
+        material_precio_unitario = dict_precio['Material']
         material_total = dict_totals['Material']
 
         ## Transporte
-        transporte_unidades = "5"
-        transporte_precio_unitario = "25"
+        transporte_unidades = dict_unidades['Transporte']
+        transporte_precio_unitario = dict_precio['Transporte']
         transporte_total = dict_totals['Transporte']
 
         ## Extra
-        extra_unidades = "5"
-        extra_precio_unitario = "25"
+        extra_unidades = dict_unidades['Extra']
+        extra_precio_unitario = dict_precio['Extra']
         extra_total = dict_totals['Extra']
 
         ## Totales
         subtotal = dict_totals['Trabajo']+dict_totals['Horas']+dict_totals['Material']+dict_totals['Transporte']+dict_totals['Extra']
-        iva = subtotal*0.21
-        irpf = subtotal*0.14
-        print(type(subtotal), type(iva), type(irpf))
-        total = f"{(subtotal+iva-irpf):.2f}"
+        iva = dict_tax['IVA']
+        irpf = dict_tax['IRPF']
+        #print(type(subtotal), type(iva), type(irpf))
+        suma = subtotal
+        print("suma -->" , suma)
+        suma = subtotal * (1 + (dict_tax['IVA']/100))
+        print("suma + iva --> ", subtotal * (1 + (dict_tax['IVA']/100)))
+        suma -= subtotal * ((dict_tax['IRPF']/100))    
+        print("suma - irpf", subtotal * ((dict_tax['IRPF']/100)) )
+        total = (round(suma,2))
         
         ## Pago
         iban = dict_datos_profesional['IBAN']
@@ -115,8 +120,10 @@ def generar_factura(dict_totals):
                 'extra_precio_unitario' : extra_precio_unitario,
                 'extra_total' : extra_total,
                 'subtotal' : f"{subtotal:.2f}",
-                'iva' : f"{iva:.2f}",
-                'irpf' : f"{irpf:.2f}",
+                'iva': iva,
+                'irpf': irpf, 
+                'iva_calc' : f"{(subtotal*iva)/100:.2f}",
+                'irpf_calc' : f"{(subtotal*irpf)/100:.2f}",
                 'total' : total,
                 'iban' : iban,
                 'swift' : swift
