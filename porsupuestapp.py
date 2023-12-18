@@ -1,5 +1,5 @@
 """ Generador de Presupuestos """
-#import os
+import os
 from tkinter import *
 from tkinter import ttk
 import csv
@@ -7,6 +7,8 @@ from PIL import Image, ImageTk
 #import popup_datos_profesional
 #import popup_datos_cliente
 from generarpdf import generar_factura
+# import datos_profesional_copy
+# from datos_cliente_copy import abrir_popup_cliente
 
 # Estilos
 COLOR_OSCURO = "#373737"
@@ -25,7 +27,6 @@ with open("datos_profesional.csv", "r", encoding="utf-8") as datos_profesional:
         dato = csv.DictReader(datos_profesional)
         for diccionario_en_fila in dato:
                 dict_datos_profesional = diccionario_en_fila
-        #print(dict_datos_profesional)
 
 ## Abre CSV Cliente y lee los datos guardados por defecto
 dict_datos_cliente = {}
@@ -33,11 +34,7 @@ with open("datos_cliente.csv", "r", encoding="utf-8") as datos_cliente:
         dato = csv.DictReader(datos_cliente)
         for diccionario_en_fila in dato:
                 dict_datos_cliente = diccionario_en_fila
-        #print(dict_datos_cliente)
 
-
-
-# Recoge datos de HTML para el PDF
 
 ## Profesional
 # logo = "icono_camara.png"
@@ -100,29 +97,18 @@ def activa_impostos(imp):
 ## Calcula el producto de cada concepto (Precio base * nº h)
 def update_entry3(var,cont,dict_precio, dict_unidades, concepto):
     if var.get().replace('.', '').isnumeric() and concepto_contador_ent_1[cont].get().replace('.', '').isnumeric():
-        # print("Soc update_entry_3", concepto_list[cont])
         entry3_vars[cont].set(round(float(concepto_contador_ent_1[cont].get())*float(var.get()),2))  
-
-
-        # print("concept --> ", concepto)
-        # print("68 --> ", round(float(var.get()),2)) 
         dict_precio[concepto_list[cont]]= round(float(var.get()),2)
         dict_unidades[concepto_list[cont]] = round(float(concepto_contador_ent_1[cont].get()),2)
     else:
         entry3_vars[cont].set(0.00)
-    # print("linia 75", dict_unidades)
-    # print("linia 76", dict_precio)
-    
 
 
 def actualitza_dicc_preus_unitats(var,cont,dict_precio, dict_unidades, concepto):
     
     if var.get().replace('.', '').isnumeric() and concepto_contador_ent_1[cont].get().replace('.', '').isnumeric():
-        # print("74 --> " , concepto)
         dict_precio[concepto]= round(float(var.get()),2)
         dict_unidades[concepto] = round(float(concepto_contador_ent_1[cont].get()),2)
-    # print("linia 75", dict_unidades)
-    # print("linia 76", dict_precio)
 
 ## Recoge valores de entry total de cada concepto para crear un dict_totals
 def recoger_totals(var,cont):
@@ -150,7 +136,6 @@ def update_impost(var,tipus, diccionari):
                 diccionari['IRPF'] = int(var.get())
                 irpf_total_var.set(round(float(subtotal_ent.get())*int(var.get())/100,2))
                 irpf_total_ent.config(state=DISABLED)
-    # print("diccionari taxes", diccionari)
 
 
 ## Subtotal, suma de productos de cada concepto
@@ -164,13 +149,10 @@ def update_subtotal(diccionario, lista):
         suma += entry_var.get()
         contador += 1
     subtotal_var.set(round(suma,2))
-    #print(diccionario)
+
 
 ## Total, suma de Subtotal e IVA y resta de IRPF
 def update_total():
-    # print("update_total -->")
-    # print(type(subtotal_var.get()),type(iva_total_var.get()),type(irpf_total_var.get()))
-
     total_var.set(0.00)
     suma = subtotal_var.get()
     suma += iva_total_var.get()
@@ -179,39 +161,27 @@ def update_total():
 
 
 # Funciones de los Botones
-## Genera una factura en PDF 
-# # (Import generarpdf.py)
-# def generar_factura(dict_totals):
-#     crear_pdf(dict_totals)
+# def popup_prof_button():
+#    top= Toplevel(app)
+#    top.geometry(625, 675)
+#    top.title("Introducir datos de profesional")
+#    os.system("python datos_profesional_copy.py")
+
+
+# def popup_cliente_button():
+#    top= Toplevel(app)
+#    top.geometry(625, 675)
+#    top.title("Introducir datos de cliente")
+#    os.system("python datos_cliente_copy.py")
 
 
 ## Registra las facturas generadas por número de recibo (Opción a eliminar y actualizar número de recibo) 
-# # # (??????)
-# def historial():
-#     pass
+def registro_historico():
+    pass
 
-# ## Envía las facturas por email
-# def enviar_mail():
-#     pass
-
-
-# # Crea la función que se ejecutará al hacer clic en el botón de "Más"
-# def agregar_campo():
-#     cuadros_de_texto = [Entry(top_frame) for i in range(3)]
-#     concepto_list.extend(agregar_campo)
-#     for cuadro_de_texto in cuadros_de_texto:
-#         cuadro_de_texto.pack()
-#     for i, cuadro_de_texto in enumerate(cuadros_de_texto):
-#         add_entry = app.Label(concepto_frame_lbl, text="Campo {}:".format(i+1))
-#         add_entry.pack(concepto_frame_lbl, font=("Helvetica",18), relief=FLAT, justify=CENTER, bd=2, width=7, fg=COLOR_OSCURO, bg=COLOR_CLARO)
-#         add_entry.place(x=cuadro_de_texto.winfo_x()-add_entry.winfo_width()-10, y=cuadro_de_texto.winfo_y())
-#         # cajas_texto = Checkbutton(concepto_frame_lbl, text=concepto, bd=2, bg=COLOR_CLARO, fg=COLOR_OSCURO, font=("Helvetica",18), relief=FLAT, variable=concepto_opciones[contador], command=lambda cont=contador:activar_textos(cont))
-#         # cajas_texto.grid(row=contador,column=0,sticky=W, padx=30, pady=5)
-
-# def agregar_concepto():
-#     nuevo_concepto = input("Introduce el nuevo elemento: ")
-    
-#     concepto_list.append(nuevo_concepto)
+## Envía las facturas por email
+def enviar_mail():
+    pass
 
 
 # Abrir programa
@@ -224,26 +194,10 @@ app.resizable(1,1)
 app.minsize(625, 675)
 
 # Icono de la app
-icon = "/Users/pabloizaguerri/Documents/Python_2023/Treball Final/"
+icon = "/Users/pabloizaguerri/Documents/Python_2023/Treball Final/APP/"
 load = Image.open("icon6.png")
 render = ImageTk.PhotoImage(load)
 app.iconphoto(False, render)
-print("El profesional es", dict_datos_profesional['Profesional'])
-print("El cliente es", dict_datos_cliente['Cliente'])
-# Tabs
-paginas = ttk.Notebook(app)
-s = ttk.Style(paginas)
-s.configure('TFrame', background=COLOR_OSCURO)
-tab1 = ttk.Frame(paginas, style='TFrame') ############################No cambia el color del frame al Color Oscuro
-tab2 = ttk.Frame(paginas)
-tab3 = ttk.Frame(paginas)
-tab4 = ttk.Frame(paginas)
-paginas.add(tab1, text ='Calculadora')
-paginas.add(tab2, text ='Historial')
-paginas.add(tab3, text ='Datos del Profesional')
-paginas.add(tab4, text ='Datos del Cliente')
-#paginas.add(tab3, popup_datos_profesional.py.main(), text ='Datos del Profesional')
-paginas.pack(expand = 1, fill ="both")
 
 
 # Frames 
@@ -268,7 +222,6 @@ concepto_frame.grid(row=0,column=0)
 concepto_frame_lbl.pack(side=TOP)
 botones_frame.grid(row=1,column=0)
 botones_frame_lbl.pack(side=TOP)
-
 
 
 # Listas de conceptos y opciones
@@ -297,12 +250,9 @@ for concepto in concepto_list:
     
     # Variable entry 2
     entry2_var = StringVar()
-    #print("linia 247 --> ", concepto)
     # actualitza_dicc_preus_unitats(entry2_var,contador,dict_precio, dict_unidades, concepto)
     entry2_var.trace("w", lambda name,index,mode,var=entry2_var,cont=contador:update_entry3(var,cont,dict_precio, dict_unidades, concepto))
-    #total = (lambda name,index,mode,var=entry2_var,cont=contador:update_entry3(var,cont))
     entry2_vars.append(entry2_var)
-    # print("entry2_vars", entry2_vars)
     # Segunda columna
     concepto_contador_ent_2.append(Entry(concepto_frame_lbl, font=("Helvetica",18), relief=FLAT, justify=CENTER, bd=2, width=8, state=DISABLED, fg=COLOR_OSCURO, bg=COLOR_CLARO, textvariable=entry2_vars[contador]))
     concepto_contador_ent_2[contador].grid(row=contador,column=2,sticky=W)
@@ -315,11 +265,6 @@ for concepto in concepto_list:
     concepto_contador_ent_3.append(Entry(concepto_frame_lbl, font=("Helvetica",18), relief=FLAT, justify=CENTER, bd=2, width=8, state=DISABLED, fg=COLOR_OSCURO, bg=COLOR_CLARO,textvariable=entry3_vars[contador]))
     concepto_contador_ent_3[contador].grid(row=contador,column=3,sticky=W)
     contador += 1
-
-    #dict_totals[concepto] = total #Rellena diccionario con conceptos
-
-#print(dict_totals)
-# Conceptos dinámicos
 
 
 # Calcular Impuestos
@@ -369,29 +314,24 @@ subtotal_ent.grid(row=5, column=1,columnspan=3)
 total_lbl.grid(row=8, column=0)
 total_ent.grid(row=8, column=1,columnspan=3)
 
-# Agregar Más
+
+# Botones de funciones
+fact_btn = Button(botones_frame_lbl, text="Generar Factura", font=("Helvetica",18), bd=0, padx=5, pady=5, width=40, relief=FLAT, bg=COLOR_GRIS_CLARO, fg=COLOR_OSCURO,command=lambda:generar_factura(dict_totals, dict_tax, dict_precio, dict_unidades))
+mail_btn = Button(botones_frame_lbl, text="Enviar email", font=("Helvetica",18), bd=0, padx=5, pady=5, width=40, relief=FLAT, bg=COLOR_GRIS_CLARO, fg=COLOR_OSCURO,command=enviar_mail)
+datos_prof_btn = Button(botones_frame_lbl, text="Profesional", font=("Helvetica",18), bd=0, padx=5, pady=5, width=40, relief=FLAT, bg=COLOR_GRIS_CLARO, fg=COLOR_OSCURO,command=lambda:popup_prof_button())
+datos_cliente_btn = Button(botones_frame_lbl, text="Cliente", font=("Helvetica",18), bd=0, padx=5, pady=5, width=40, relief=FLAT, bg=COLOR_GRIS_CLARO, fg=COLOR_OSCURO,command=lambda:popup_cliente_button())
+reg_btn = Button(botones_frame_lbl, text="Registro Histórico", font=("Helvetica",18), bd=0, padx=5, pady=5, width=40, relief=FLAT, bg=COLOR_GRIS_CLARO, fg=COLOR_OSCURO,command=registro_historico)
+
+
+fact_btn.grid(row=1)
+datos_prof_btn.grid(row=2)
+datos_cliente_btn.grid(row=3)
+mail_btn.grid(row=4)
+reg_btn.grid(row=5)
+
+## Agregar Más
 # boton_mas = Button(concepto_frame, text="Agregar Conceptos", font=("Helvetica",14), bd=0, padx=5, pady=5, relief=FLAT, bg=COLOR_GRIS_CLARO, fg=COLOR_OSCURO, command=lambda: agregar_concepto())
 # boton_mas.grid(row=9, column=0)
 # boton_mas.pack(side="bottom", anchor="center", padx=2, pady=10)
-
-# print("337 -->", dict_totals)
-# # print(dict_tax)
-# print("=" * 50)
-# print("\n")
-# print("Preu", dict_precio)
-# print("Unitats", dict_unidades)
-# print("\n")
-# print("=" * 50)
-
-# Botones de funciones
-#pres_btn = Button(botones_frame_lbl, text="Calcular Presupuesto", font=("Helvetica",18), bd=0, padx=5, pady=5, width=40, relief=FLAT, bg=COLOR_GRIS_CLARO, fg=COLOR_OSCURO,command=calc_pressupost)
-fact_btn = Button(botones_frame_lbl, text="Generar Factura", font=("Helvetica",18), bd=0, padx=5, pady=5, width=40, relief=FLAT, bg=COLOR_GRIS_CLARO, fg=COLOR_OSCURO,command=lambda:generar_factura(dict_totals, dict_tax, dict_precio, dict_unidades))
-# reg_btn = Button(botones_frame_lbl, text="Registro Histórico", font=("Helvetica",18), bd=0, padx=5, pady=5, width=40, relief=FLAT, bg=COLOR_GRIS_CLARO, fg=COLOR_OSCURO,command=historial)
-#mail_btn = Button(botones_frame_lbl, text="Enviar email", font=("Helvetica",18), bd=0, padx=5, pady=5, width=40, relief=FLAT, bg=COLOR_GRIS_CLARO, fg=COLOR_OSCURO,command=enviar_mail)
-
-#pres_btn.grid(row=0)
-fact_btn.grid(row=1)
-# reg_btn.grid(row=2)
-#mail_btn.grid(row=2)
 
 app.mainloop()

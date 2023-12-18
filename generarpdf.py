@@ -15,7 +15,6 @@ def generar_factura(dict_totals, dict_tax, dict_precio, dict_unidades):
                 dato = csv.DictReader(datos_profesional)
                 for diccionario_en_fila in dato:
                         dict_datos_profesional = diccionario_en_fila
-                #print(dict_datos_profesional)
 
         ## Abre CSV Cliente y lee los datos guardados por defecto
         dict_datos_cliente = {}
@@ -23,9 +22,6 @@ def generar_factura(dict_totals, dict_tax, dict_precio, dict_unidades):
                 dato = csv.DictReader(datos_cliente)
                 for diccionario_en_fila in dato:
                         dict_datos_cliente = diccionario_en_fila
-                #print(dict_datos_cliente)
-
-
 
         # Recoge datos de HTML para el PDF
 
@@ -76,7 +72,6 @@ def generar_factura(dict_totals, dict_tax, dict_precio, dict_unidades):
         subtotal = dict_totals['Trabajo']+dict_totals['Horas']+dict_totals['Material']+dict_totals['Transporte']+dict_totals['Extra']
         iva = dict_tax['IVA']
         irpf = dict_tax['IRPF']
-        #print(type(subtotal), type(iva), type(irpf))
         suma = subtotal
         print("suma -->" , suma)
         suma = subtotal * (1 + (dict_tax['IVA']/100))
@@ -130,7 +125,6 @@ def generar_factura(dict_totals, dict_tax, dict_precio, dict_unidades):
                 }
 
 
-
         # Generador de PDF según los datos que recoge
         ## Ruta HTML y CSS
         ruta = "/Users/pabloizaguerri/Documents/Python_2023/Treball Final/"
@@ -139,8 +133,6 @@ def generar_factura(dict_totals, dict_tax, dict_precio, dict_unidades):
         template_env = jinja2.Environment(loader=template_loader)
         plantilla_html = template_env.get_template("factura.html")
 
-        #datos = {}
-
         output_text = plantilla_html.render(datos)
         config = pdfkit.configuration(wkhtmltopdf="/usr/local/bin/wkhtmltopdf") #which wkhtmltopdf
         ultima_factura_generada = 1
@@ -148,8 +140,3 @@ def generar_factura(dict_totals, dict_tax, dict_precio, dict_unidades):
         nombre_pdf = f"factura_{num_factura:03}.pdf"  #3 números a la factura
         css = f"{ruta}style.css"
         pdfkit.from_string(output_text, nombre_pdf, configuration=config, css=css)
-
-
-
-# dict_totals = {'Trabajo': 12.0, 'Horas': 0.0, 'Material': 0.0, 'Transporte': 0.0, 'Extra': 0.0}
-# generar_factura(dict_totals)
