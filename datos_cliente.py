@@ -21,28 +21,6 @@ with open("datos_cliente.csv", "r", encoding="utf-8") as datos_cliente:
 datos_clientes = ['Cliente', 'Direccion', 'CP', 'Telefono', 'Email', 'CIF']
 
 ## Genera los Entries y muestra los datos guardados por defecto, y recoge los datos de cliente sobreescritos
-# def guardar_datos_cliente(popup_cliente):
-#     entries = []
-#     with open("datos_cliente.csv", "r", encoding="utf-8") as datos_cliente:
-#         dato = csv.DictReader(datos_cliente)
-#         dict_datos_cliente = next(dato)  # Lee la primera línea del archivo CSV
-#         for datos in datos_clientes:
-#             row = Frame(popup_cliente, bd=0, padx=0, pady=1, width=5, relief=FLAT, bg=COLOR_CLARO)
-#             lab = Label(row, width=15, text=datos, anchor=W, bd=0, padx=0, pady=1, relief=FLAT, bg=COLOR_CLARO, fg=COLOR_OSCURO)
-#             ent = Entry(row,bg=COLOR_CLARO,fg=COLOR_OSCURO)
-#             valor = dict_datos_cliente.get(datos, '')  # Obtiene el valor del diccionario o un string vacío si no existe
-#             ent.insert(END, valor)
-#             row.pack(side=TOP, fill=X, padx=5, pady=5)
-#             lab.pack(side=LEFT)
-#             ent.pack(side=RIGHT, expand=YES, fill=X)
-#             entries.append((datos, ent))
-#             # Botón Guardar al final de los Entries
-#         guardar = Button(popup_cliente, text='Guardar', font=("Helvetica", 18), bd=0, padx=5, pady=5,
-#                          width=15, relief=FLAT, bg=COLOR_CLARO, fg=COLOR_OSCURO,
-#                          command=(lambda e=entries: boton_save(e, dict_datos_cliente, datos_clientes)))
-#         guardar.pack(side=BOTTOM, padx=5, pady=15)
-#     return entries
-
 def guardar_datos_cliente(popup_cliente):
     entries = []
     with open("datos_cliente.csv", "r", encoding="utf-8") as datos_cliente:
