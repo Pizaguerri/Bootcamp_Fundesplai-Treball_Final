@@ -127,7 +127,7 @@ def generar_factura(dict_totals, dict_tax, dict_precio, dict_unidades):
 
         # Generador de PDF según los datos que recoge
         ## Ruta HTML y CSS
-        ruta = "/Users/pabloizaguerri/Documents/Python_2023/Treball Final/"
+        ruta = "/Users/pabloizaguerri/Coding/Bootcamp Python/Python_2023/Treball Final/"
         ## Carga las plantillas
         template_loader = jinja2.FileSystemLoader(searchpath=ruta)
         template_env = jinja2.Environment(loader=template_loader)

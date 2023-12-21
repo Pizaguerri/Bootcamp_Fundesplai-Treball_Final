@@ -160,28 +160,30 @@ def update_total():
 
 
 # Funciones de los Botones
-# def popup_prof_button():
-#     dp.new_window()
-# #    top= Toplevel()
-# #    top.geometry(625, 675)
-# #    top.title("Introducir datos de profesional")
-# #    os.system("python datos_profesional.py")
+def popup_prof_button():
+    pass
+#    dp.new_window()
+#    top= Toplevel()
+#    top.geometry(625, 675)
+#    top.title("Introducir datos de profesional")
+#    os.system("python datos_profesional.py")
 
 
-# def popup_cliente_button():
+def popup_cliente_button():
+    pass
 #    top= Toplevel(app)
 #    top.geometry(625, 675)
 #    top.title("Introducir datos de cliente")
 #    os.system("python datos_cliente.py")
 
 
-## Registra las facturas generadas por número de recibo (Opción a eliminar y actualizar número de recibo) 
-# def registro_historico():
-#     pass
+# Registra las facturas generadas por número de recibo (Opción a eliminar y actualizar número de recibo) 
+def registro_historico():
+    pass
 
-# ## Envía las facturas por email
-# def enviar_mail():
-#     pass
+## Envía las facturas por email
+def enviar_mail():
+    pass
 
 
 # Abrir programa
@@ -317,17 +319,17 @@ total_ent.grid(row=8, column=1,columnspan=3)
 
 # Botones de funciones
 fact_btn = Button(botones_frame_lbl, text="Generar Factura", font=("Helvetica",18), bd=0, padx=5, pady=5, width=40, relief=FLAT, bg=COLOR_GRIS_CLARO, fg=COLOR_OSCURO,command=lambda:generar_factura(dict_totals, dict_tax, dict_precio, dict_unidades))
-#mail_btn = Button(botones_frame_lbl, text="Enviar email", font=("Helvetica",18), bd=0, padx=5, pady=5, width=40, relief=FLAT, bg=COLOR_GRIS_CLARO, fg=COLOR_OSCURO,command=enviar_mail)
-# datos_prof_btn = Button(botones_frame_lbl, text="Profesional", font=("Helvetica",18), bd=0, padx=5, pady=5, width=40, relief=FLAT, bg=COLOR_GRIS_CLARO, fg=COLOR_OSCURO,command=lambda:popup_prof_button())
-# datos_cliente_btn = Button(botones_frame_lbl, text="Cliente", font=("Helvetica",18), bd=0, padx=5, pady=5, width=40, relief=FLAT, bg=COLOR_GRIS_CLARO, fg=COLOR_OSCURO,command=lambda:popup_cliente_button())
-#reg_btn = Button(botones_frame_lbl, text="Registro Histórico", font=("Helvetica",18), bd=0, padx=5, pady=5, width=40, relief=FLAT, bg=COLOR_GRIS_CLARO, fg=COLOR_OSCURO,command=registro_historico)
+mail_btn = Button(botones_frame_lbl, text="Enviar email", font=("Helvetica",18), bd=0, padx=5, pady=5, width=40, relief=FLAT, bg=COLOR_GRIS_CLARO, fg=COLOR_OSCURO,command=enviar_mail)
+datos_prof_btn = Button(botones_frame_lbl, text="Profesional", font=("Helvetica",18), bd=0, padx=5, pady=5, width=40, relief=FLAT, bg=COLOR_GRIS_CLARO, fg=COLOR_OSCURO,command=lambda:popup_prof_button())
+datos_cliente_btn = Button(botones_frame_lbl, text="Cliente", font=("Helvetica",18), bd=0, padx=5, pady=5, width=40, relief=FLAT, bg=COLOR_GRIS_CLARO, fg=COLOR_OSCURO,command=lambda:popup_cliente_button())
+reg_btn = Button(botones_frame_lbl, text="Registro Histórico", font=("Helvetica",18), bd=0, padx=5, pady=5, width=40, relief=FLAT, bg=COLOR_GRIS_CLARO, fg=COLOR_OSCURO,command=registro_historico)
 
 
 fact_btn.grid(row=1)
-# datos_prof_btn.grid(row=2)
-# datos_cliente_btn.grid(row=3)
-# mail_btn.grid(row=4)
-# reg_btn.grid(row=5)
+datos_prof_btn.grid(row=2)
+datos_cliente_btn.grid(row=3)
+mail_btn.grid(row=4)
+reg_btn.grid(row=5)
 
 ## Agregar Más
 # boton_mas = Button(concepto_frame, text="Agregar Conceptos", font=("Helvetica",14), bd=0, padx=5, pady=5, relief=FLAT, bg=COLOR_GRIS_CLARO, fg=COLOR_OSCURO, command=lambda: agregar_concepto())
